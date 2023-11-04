@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom";
 
 function Categorias() {
     
+    const navigate = useNavigate();
+
     const token = localStorage.getItem('token')
 
     const [categoria,setCategoria] = useState({
@@ -14,7 +17,7 @@ function Categorias() {
   
     useEffect(() => {
       fetch("http://localhost:3000/categorias",{
-        method: "GET", // You can adjust the HTTP method if needed
+        method: "GET",
         headers: {
           "Authorization": `Bearer ${token}` 
         }
@@ -22,6 +25,10 @@ function Categorias() {
         .then((res) => res.json())
         .then((categorias) => setCategorias(categorias));
         
+    }, []);
+
+    useEffect(() => {
+      !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
     }, []);
   
     const clickCategoria = async (categoria) => {

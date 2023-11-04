@@ -1,5 +1,32 @@
+import { useEffect, useState } from "react";
+
 function Libros() {
 
+   const [libro,setLibro] =  useState({
+    id_categoria : 0
+   })
+
+   const token = localStorage.getItem('token')
+   
+   const [categorias,setCategorias] = useState([])
+
+   useEffect(() => {
+    fetch("http://localhost:3000/categorias",{
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}` 
+      }
+    })
+      .then((res) => res.json())
+      .then((categorias) => setCategorias(categorias));
+      
+  }, []);
+
+
+  useEffect(() => {
+    !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
+  }, []);
+  
   return (
     <>
       <main className="md:w-3/5  xl:w-4/5 px-5 py-10 bg-gray-200">
@@ -40,6 +67,17 @@ function Libros() {
                                     placeholder="Campo 3 Libro"
                                 />
                             </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" for="telefono">Campo 3</label>
+                                <select onChange={(e)=>{ setLibro({...libro, id_categoria : e.target.value })}}>
+                                    {
+                                    categorias.map((item,index)=>(
+                                        <option value={item.id_categoria} key={index}>
+                                                {item.nombre}
+                                        </option>
+                                     ))}
+                                </select>
+                            </div>
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" for="Campo 4">Campo 4</label>
@@ -54,6 +92,7 @@ function Libros() {
 
                             {/* Botón */}
                             <input
+                                onClick={console.log(libro)}
                                 type="submit"
                                 className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
                                 value="Agregar Libro"

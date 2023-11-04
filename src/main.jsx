@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Libros from './componentes/libros/Libros.jsx'
-import BarraLateral from './componentes/barraLateral/BarraLateral.jsx'
-import Categorias from './componentes/categorias/Categorias.jsx'
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider} from './contexts/AuthContext.jsx'
+import App from './App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <div className="md:flex min-h-screen md:align-top">
-      <BarraLateral></BarraLateral>
-      {/* <Libros></Libros> */}
-      <Categorias></Categorias>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>,
 )

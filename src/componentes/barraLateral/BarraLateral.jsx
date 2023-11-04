@@ -1,5 +1,15 @@
+import { useAuthContext } from "../../contexts/AuthContext"
+import { useNavigate } from "react-router-dom";
 
 function BarraLateral() {
+
+  const { logout } = useAuthContext(); 
+
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    logout(()=> navigate("/login", { replace: true }))
+  }
 
   return (
     <>
@@ -8,14 +18,19 @@ function BarraLateral() {
             <p className="mt-10 text-white">Menú</p>
             <nav className="mt-8">
                 <a  
-                    href="/" 
+                    href="/libros" 
                     className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
                 >Libros</a>
                 <a  
-                    href="/" 
+                    href="/categorias" 
                     className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
                 >Categorias</a>
             </nav>
+          <a style={{'background':'none', 'margin-top':'100px'}} 
+          href="#"
+          onClick={()=>{onLogout()}}
+          className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+        >🔒 Cerrar Sesión</a>
     </aside>
     </>
   )
