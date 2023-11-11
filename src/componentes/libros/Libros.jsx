@@ -229,7 +229,7 @@ function Libros() {
        } */}
                     <div className=" shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
                       
-                        <form id="formulario" className="bg-white p-3">
+                        <div id="formulario" className="bg-white p-3">
                           {/* Input */}
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">Nombre:</label>
@@ -353,7 +353,7 @@ function Libros() {
                                     value="Editar Libro"
                                 />)}
                                 {/* /Botón  Editar*/}
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
