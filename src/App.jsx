@@ -1,18 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "./componentes/login/login.jsx"
+import Login from "./componentes/login/Login.jsx"
 import BarraLateral from "./componentes/barraLateral/BarraLateral.jsx"
 import Categorias from "./componentes/categorias/Categorias.jsx"
 import Libros from "./componentes/libros/Libros.jsx";
+import Dashboard from "./componentes/dashboard/Dashboard.jsx";
 
 function App() {
   return (
     <>
     <div style={{'display': 'flex' , 'flexDirection': 'row', 'minHeight': '800px'}}>
-        { localStorage.getItem("token") && (<BarraLateral></BarraLateral>)}
         <Routes>
-            <Route path="/categorias" element={<Categorias />}></Route>
-            <Route path="/libros" element={<Libros />}></Route>
-            <Route path="/login" element={<Login />}></Route>
+            <Route path="/categorias" element={<><BarraLateral></BarraLateral><Categorias /></>}></Route>
+            <Route path="/libros" element={<><BarraLateral></BarraLateral><Libros /></>}></Route>
+            <Route path="/login" element={<><Login /></>}></Route>
+            <Route path="/" element={<><BarraLateral></BarraLateral><Dashboard /></>}></Route>
         </Routes>
     </div>
     </>
