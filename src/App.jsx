@@ -7,6 +7,9 @@ import Editorial from "./componentes/editorial/Editorial.jsx";
 import Stock from "./componentes/stock/Stock.jsx"
 import Dashboard from "./componentes/dashboard/Dashboard.jsx";
 import Usuarios from "./componentes/usuarios/Usuarios.jsx"
+import Autores from "./componentes/autores/Autores.jsx";
+import Roles from "./componentes/roles/Roles.jsx";
+import Personas from "./componentes/personas/Personas.jsx";
 
 function App() {
   return (
