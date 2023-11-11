@@ -7,6 +7,7 @@ import Proveedores from "./componentes/proveedores/Proveedores.jsx";
 import Editorial from "./componentes/editorial/Editorial.jsx";
 import Stock from "./componentes/stock/Stock.jsx"
 import Dashboard from "./componentes/dashboard/Dashboard.jsx";
+import Ventas from "./componentes/ventas/Ventas.jsx";
 import Usuarios from "./componentes/usuarios/Usuarios.jsx"
 import Autores from "./componentes/autores/Autores.jsx";
 import Roles from "./componentes/roles/Roles.jsx";
@@ -25,6 +26,7 @@ function App() {
             <Route path="/usuarios" element={<><BarraLateral></BarraLateral><Usuarios /></>}></Route>
             <Route path="/login" element={<><Login /></>}></Route>
             <Route path="/" element={<><BarraLateral></BarraLateral><Dashboard /></>}></Route>
+            <Route path="/ventas" element={<><BarraLateral></BarraLateral><Ventas /></>}></Route>
         </Routes>
     </div>
     </>
