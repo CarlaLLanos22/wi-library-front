@@ -5,6 +5,7 @@ import Categorias from "./componentes/categorias/Categorias.jsx"
 import Libros from "./componentes/libros/Libros.jsx";
 import Editorial from "./componentes/editorial/Editorial.jsx";
 import Dashboard from "./componentes/dashboard/Dashboard.jsx";
+import Ventas from "./componentes/ventas/Ventas.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/editorial" element={<><BarraLateral></BarraLateral><Editorial /></>}></Route>
             <Route path="/login" element={<><Login /></>}></Route>
             <Route path="/" element={<><BarraLateral></BarraLateral><Dashboard /></>}></Route>
+            <Route path="/ventas" element={<><BarraLateral></BarraLateral><Ventas /></>}></Route>
         </Routes>
     </div>
     </>

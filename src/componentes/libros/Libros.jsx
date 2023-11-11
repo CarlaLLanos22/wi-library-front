@@ -13,6 +13,7 @@ function Libros() {
         año: null,
         tipo: "",
         isbn: "",
+        precio:0,
         id_autor: 0,
         id_editorial: 0,
         id_proveedor: 0,
@@ -57,6 +58,7 @@ function Libros() {
         año: libro.año,
         tipo: libro.tipo,
         isbn: libro.isbn,
+        precio:libro.precio,
         nombre_autor: libro.nombre_autor,
         nombre_editorial: libro.nombre_editorial,
         nombre_proveedor: libro.nombre_proveedor,
@@ -144,6 +146,7 @@ function Libros() {
           año: +libro.año,
           tipo:libro.tipo,
           isbn: libro.isbn,
+          precio:+libro.precio,
           id_autor: +libro.id_autor,
           id_editorial: +libro.id_editorial,
           id_proveedor: +libro.id_proveedor,
@@ -210,6 +213,7 @@ function Libros() {
       año: 0,
       tipo: "",
       isbn: "",
+      precio:0,
       id_autor: 0,
       id_editorial: 0,
       id_proveedor: 0,
@@ -254,6 +258,18 @@ function Libros() {
                                     type="number"
                                     placeholder="año"
                                     onChange={(e)=>{setLibro({...libro, año: e.target.value})}}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="precio">Precio:</label>
+                                <input 
+                                    value={libro.precio}
+                                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="precio"
+                                    name="precio"
+                                    type="number"
+                                    placeholder="precio"
+                                    onChange={(e)=>{setLibro({...libro, precio: e.target.value})}}
                                 />
                             </div>
                             <div className="mb-4">
@@ -386,6 +402,10 @@ function Libros() {
                                         Categoria
                                 </th>
                                 <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                        Precio
+
+                                </th>
+                                <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                         Editorial
                                 </th>
                                 <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
@@ -395,7 +415,7 @@ function Libros() {
                         </thead>
                         <tbody id="listado-Libros" className="bg-white">
                   {
-                    libros.map(({ id_libro, nombre, año, tipo , isbn, nombre_autor, nombre_categoria, nombre_editorial,nombre_proveedor})=>(
+                    libros.map(({ id_libro, nombre, año, tipo , isbn, precio, nombre_autor, nombre_categoria, nombre_editorial,nombre_proveedor})=>(
                                         <tr key={id_libro}>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                                 {nombre}
@@ -419,11 +439,14 @@ function Libros() {
                                                 {nombre_categoria}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                {precio}
+                                            </th>
+                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                                   {nombre_editorial}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                                 <span onClick={()=>{eliminarLibro(id_libro)}}>🗑️</span>
-                                                <span onClick={()=>{clickLibro({ id_libro, nombre, año, tipo, isbn, nombre_autor, nombre_editorial, nombre_proveedor, nombre_categoria })}}>📝</span>
+                                                <span onClick={()=>{clickLibro({ id_libro, nombre, año, tipo, isbn, precio, nombre_autor, nombre_editorial, nombre_proveedor, nombre_categoria })}}>📝</span>
                                             </th>
                                         </tr>
                                         
