@@ -29,6 +29,18 @@ function BarraLateral() {
                     href="/editorial" 
                     className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
                 >Editoriales</a>
+                <a  
+                    href="/autores" 
+                    className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Autores</a>
+                <a  
+                    href="/roles" 
+                    className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Roles</a>
+                <a  
+                    href="/personas" 
+                    className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Personas</a>
             </nav>
           <a style={{'background':'none', 'marginTop':'100px'}} 
           href="#"
