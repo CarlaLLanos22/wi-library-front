@@ -9,7 +9,7 @@ function Login() {
     const navigate = useNavigate();
     const location = useLocation();
     
-    const from = location.state?.from?.pathname || "/Libros";
+    const from = location.state?.from?.pathname || "/";
     
     const [usuario,setUsuario] = useState({
         username: '',
