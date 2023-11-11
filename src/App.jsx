@@ -22,6 +22,9 @@ function App() {
             <Route path="/libros" element={<><BarraLateral></BarraLateral><Libros /></>}></Route>
             <Route path="/editorial" element={<><BarraLateral></BarraLateral><Editorial /></>}></Route>
             <Route path="/stock" element={<><BarraLateral></BarraLateral><Stock /></>}></Route>
+            <Route path="/autores" element={<><BarraLateral></BarraLateral><Autores /></>}></Route>
+            <Route path="/roles" element={<><BarraLateral></BarraLateral><Roles /></>}></Route>
+            <Route path="/personas" element={<><BarraLateral></BarraLateral><Personas /></>}></Route>
             <Route path="/usuarios" element={<><BarraLateral></BarraLateral><Usuarios /></>}></Route>
             <Route path="/login" element={<><Login /></>}></Route>
             <Route path="/" element={<><BarraLateral></BarraLateral><Dashboard /></>}></Route>
