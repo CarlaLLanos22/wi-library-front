@@ -33,6 +33,10 @@ function BarraLateral() {
                     href="/stock" 
                     className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
                 >Stock</a>
+                <a  
+                    href="/usuarios" 
+                    className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Usuario</a>
             </nav>
           <a style={{'background':'none', 'marginTop':'100px'}} 
           href="#"
