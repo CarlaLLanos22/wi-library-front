@@ -30,6 +30,14 @@ function BarraLateral() {
                     className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
                 >Editoriales</a>
                 <a  
+                    href="/stock" 
+                    className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Stock</a>
+                <a  
+                    href="/usuarios" 
+                    className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
+                >Usuario</a>
+                <a  
                     href="/proveedores" 
                     className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
                 >Proveedores</a>
