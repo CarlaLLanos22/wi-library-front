@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
         callback();
       }
     } catch (e) {
+      alert(e.response.data.error)
       error();
     }
   };
