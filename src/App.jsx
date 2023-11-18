@@ -12,6 +12,7 @@ import Usuarios from "./componentes/usuarios/Usuarios.jsx"
 import Autores from "./componentes/autores/Autores.jsx";
 import Roles from "./componentes/roles/Roles.jsx";
 import Personas from "./componentes/personas/Personas.jsx";
+import ListadoVentas from "./componentes/listadoVentas/ListadoVentas.jsx";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/login" element={<><Login /></>}></Route>
             <Route path="/" element={<><BarraLateral></BarraLateral><Dashboard /></>}></Route>
             <Route path="/ventas" element={<><BarraLateral></BarraLateral><Ventas /></>}></Route>
+            <Route path="/listado-ventas" element={<><BarraLateral></BarraLateral><ListadoVentas /></>}></Route>
         </Routes>
       </div>
       
