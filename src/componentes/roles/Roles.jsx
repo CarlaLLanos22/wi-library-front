@@ -105,6 +105,12 @@ function Roles() {
       }
   
     }
+  
+    const cancelarEdicion = () => {
+      limpiarForm();
+      setVisible(false);
+    };
+  
     
     function limpiarForm() {
       setRol({
@@ -120,7 +126,7 @@ function Roles() {
                 <div className="flex flex-col mt-10 items-center">
                     <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
                         <div className=" shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
-                            <form id="formulario" className="bg-white p-3">
+                            <div id="formulario" className="bg-white p-3">
                                 {/* Input */}
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Nombre">Nombre</label>
@@ -134,26 +140,30 @@ function Roles() {
                                         placeholder="Ingresar nombre de la Rol"
                                     />
                                 </div>
-                                {/* Input */}
-
-                                {/* Botón Agregar */}
-                                {visible == false && (<input
-                                    onClick={()=>{agregarRol()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Agregar Rol"
-                                />)}
-                                {/* Botón Agregar */}
-
-                                {/* Botón Editar */}
-                                {visible == true && (<input
-                                    onClick={()=>{edicionRol()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Editar Rol"
-                                />)}
-                                {/* /Botón  Editar*/}
-                            </form>
+                                {visible ? (
+                                    <input
+                                      onClick={edicionRol}
+                                      type="submit"
+                                      className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                                      value="Editar Rol"
+                                    />
+                                  ) : (
+                                    <input
+                                      onClick={agregarRol}
+                                      type="submit"
+                                      className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                                      value="Agregar Rol"
+                                    />
+                                  )}
+                                    {visible && (
+                                    <input
+                                      type="submit"
+                                      onClick={cancelarEdicion}
+                                      className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                                      value="Cancelar"
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

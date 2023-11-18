@@ -36,6 +36,8 @@ function Autores() {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
     }, []);
   
+  
+  
     const clickAutor = async (autor) => {
       setAutorSeleccionada(autor.id_autor)
       setAutor(autor)
@@ -119,6 +121,12 @@ function Autores() {
       }
   
     }
+  
+    const cancelarEdicion = () => {
+      limpiarForm();
+      setVisible(false);
+    };
+  
     
     function limpiarForm() {
       setAutor({
@@ -212,27 +220,30 @@ function Autores() {
                                         placeholder="Ingresar fecha de nacimiento  de la Autor"
                                     />
                                 </div>
-                                {/* Input */}
-
-
-
-                                {/* Botón Agregar */}
-                                {visible == false && (<input
-                                    onClick={()=>{agregarAutor()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Agregar Autor"
-                                />)}
-                                {/* Botón Agregar */}
-
-                                {/* Botón Editar */}
-                                {visible == true && (<input
-                                    onClick={()=>{edicionAutor()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Editar Autor"
-                                />)}
-                                {/* /Botón  Editar*/}
+                   
+                                {visible ? (
+                                    <input
+                                      onClick={edicionAutor}
+                                      type="submit"
+                                      className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                                      value="Editar Autores"
+                                    />
+                                  ) : (
+                                    <input
+                                      onClick={agregarAutor}
+                                      type="submit"
+                                      className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                                      value="Agregar Autores"
+                                    />
+                                  )}
+                                    {visible && (
+                                    <input
+                                      type="submit"
+                                      onClick={cancelarEdicion}
+                                      className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                                      value="Cancelar"
+                                    />
+                                    )}
                             </div>
                         </div>
                     </div>
@@ -257,10 +268,7 @@ function Autores() {
                                             biografia
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            fecha_nacimiento
-                                        </th>
-                                        <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            id_autor
+                                            Fecha Nacimiento
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                             Acciones
@@ -287,9 +295,6 @@ function Autores() {
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                                 {item.fecha_nacimiento}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {item.id_autor}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                                 <span onClick={()=>{eliminarAutor(item.id_autor)}}>🗑️</span>

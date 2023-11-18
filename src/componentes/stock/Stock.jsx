@@ -27,7 +27,7 @@ function Stock() {
         .then((res) => res.json())
         .then((stocks) => { setStocks(stocks[0])});
         
-    }, []);
+    }, [stocks]);
 
     useEffect(() => {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -48,7 +48,10 @@ function Stock() {
   
        const clickStock = async (stock) => {
         setStockSeleccionado(stock.id_stock)
-         setStock(stock)
+         setStock({
+          cantidad: stock.stock_cantidad,
+          id_libro: stock.id_libro,
+        })
          setVisible(true)
     };
     
@@ -79,7 +82,7 @@ function Stock() {
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-            cantidad: stock.cantidad,
+            cantidad: +stock.cantidad,
             id_libro: +stock.id_libro
         }),
       });
@@ -119,6 +122,11 @@ function Stock() {
       }
   
     }
+    const cancelarEdicion = () => {
+      limpiarForm();
+      setVisible(false);
+    };
+  
     
     function limpiarForm() {
       setStock({
@@ -138,18 +146,18 @@ function Stock() {
                             <div id="formulario" className="bg-white p-3">
                                 {/* Input */}
                                 <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Stock">Cantidad de Libros:</label>
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cantidad">Cantidad de Libros:</label>
                                     <input
                                         onChange={(e)=>{setStock({...stock, cantidad: parseInt(e.target.value)})}}
                                         value={stock.cantidad}
                                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="Stock"
-                                        name="Stock"
+                                        id="cantidad"
+                                        name="cantidad"
                                         type="number"
                                         placeholder="cantidad de stock de libros"
                                     />
-                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="proveedor">Proveedores:</label>
-                                <select onChange={(e)=>{ setStock({...stock, id_libro: e.target.value })}}
+                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="libro">Libros:</label>
+                                <select onChange={(e)=>{ setStock({...stock, id_libro: e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 value={stock.id_libro}>
                                 <option value="0" >Seleccionar</option>
                                     {
@@ -163,22 +171,29 @@ function Stock() {
                                 {/* Input */}
 
                                 {/* Botón Agregar */}
-                                {visible == false && (<input
-                                    onClick={()=>{agregarStock()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Agregar Stock"
-                                />)}
-                                {/* Botón Agregar */}
-
-                                {/* Botón Editar */}
-                
-                                {visible == true && (<input
-                                    onClick={()=>{edicionStock()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Editar Stock"
-                                />)}
+                                {visible ? (
+                            <input
+                              onClick={edicionStock}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Editar Stock"
+                            />
+                          ) : (
+                            <input
+                              onClick={agregarStock}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Agregar Stock"
+                            />
+                          )}
+                            {visible && (
+                            <input
+                              type="submit"
+                              onClick={cancelarEdicion}
+                              className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                              value="Cancelar"
+                            />
+                            )}
                                 {/* /Botón  Editar*/}
                             </div>
                         </div>

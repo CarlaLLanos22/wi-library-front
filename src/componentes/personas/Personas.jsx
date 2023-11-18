@@ -122,6 +122,11 @@ function Personas() {
       }
   
     }
+  
+    const cancelarEdicion = () => {
+      limpiarForm();
+      setVisible(false);
+    }  
     
     function limpiarForm() {
       setPersona({
@@ -230,27 +235,29 @@ function Personas() {
                                         placeholder="Ingresar tipo"
                                     />
                                 </div>
-                                {/* Input */}
-
-
-
-                                {/* Botón Agregar */}
-                                {visible == false && (<input
-                                    onClick={()=>{agregarPersona()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Agregar Persona"
-                                />)}
-                                {/* Botón Agregar */}
-
-                                {/* Botón Editar */}
-                                {visible == true && (<input
-                                    onClick={()=>{edicionPersona()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Editar Persona"
-                                />)}
-                                {/* /Botón  Editar*/}
+                                {visible ? (
+                                    <input
+                                      onClick={edicionPersona}
+                                      type="submit"
+                                      className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                                      value="Editar Persona"
+                                    />
+                                  ) : (
+                                    <input
+                                      onClick={agregarPersona}
+                                      type="submit"
+                                      className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                                      value="Agregar Persona"
+                                    />
+                                  )}
+                                    {visible && (
+                                    <input
+                                      type="submit"
+                                      onClick={cancelarEdicion}
+                                      className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                                      value="Cancelar"
+                                    />
+                            )}
                             </div>
                         </div>
                     </div>
