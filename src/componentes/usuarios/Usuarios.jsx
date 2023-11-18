@@ -48,7 +48,9 @@ function Usuarios() {
           }
         })
           .then((res) => res.json())
-          .then((personas) => setPersonas(personas));
+        .then((personas) => setPersonas(personas));
+      
+
       
       }, []); 
       
@@ -57,23 +59,33 @@ function Usuarios() {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
     }, []);
   
-    const clickUsuario = async (usuario) => {
-      setUsuarioSeleccionado(usuario.usuario.id_usuario)
-      const usua = {...usuario.usuario, id_persona: usuario.oersona.id_persona, id_rol: usuario.rol.id_rol}
-      setUsuario(usua)
-      setVisible(true)
-    };
+  
+  const clickUsuario = async (datos) => {
+    
+      setUsuarioSeleccionado(datos)
+
+      setUsuario({username : datos.usuario.username,
+                  id_rol: +datos.rol.id_rol,
+        id_persona: +datos.persona.id_persona
+      })
+      
+        setVisible(true);
+    }
+    
     
   
     const eliminarUsuario = async (usuarioId) => {
       if (window.confirm("¿Desea eliminar ?")) {
         const res = await fetch(`http://localhost:3000/usuarios/${usuarioId}`, {
           method: "DELETE",
-          headers: { "Authorization": `Bearer ${token}`},
+          headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+          },
         });
   
         if (res.ok) {
-          setUsuarios(usuarios.filter((usuario) => usuario.id_usuario !== usuarioId));
+          setUsuarios(usuarios.filter(({usuario:{id_usuario}}) => id_usuario !== usuarioId));
         } else {
           alert("Fallo al quitar usuario");
         }
@@ -90,63 +102,62 @@ function Usuarios() {
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-          usuario: {
+          usuario:{
             username: usuario.username,
             password:  usuario.password,
-            id_persona: usuario.id_persona,
-            id_rol: usuario.id_rol,
-          },
+            id_persona: +usuario.id_persona,
+            id_rol: +usuario.id_rol,
+          }
         }),
       });
   
       if (res.ok) {
         const usuarioNuevo = await res.json();
-          const usuarioEstado = {
-              "usuario": usuarioNuevo,
-              "persona": {
-                  "id_persona": usuarioNuevo.id_persona
-              },
-              "rol": {
-                  "id_rol": usuarioNuevo.id_rol
-              }
-          }
-        setUsuarios([...usuarios, usuarioEstado]);
+        setUsuarios(usuarioNuevo);
         limpiarForm()
+        
+       
       } else {
-        alert(mensajeError())
+        alert("Fallo al crear Usuario");
       }
       setVisible(false)
+
+      
+      
+  
     };
   
     const edicionUsuario = async () => {
       if (window.confirm("¿Desea Editar ?")) {
-        const res = await fetch(`http://localhost:3000/usuarios/${usuarioSeleccionado}`, {
+        const res = await fetch(`http://localhost:3000/usuarios/${usuarioSeleccionado.usuario.id_usuario}`, {
           method: "PUT",
           headers: { 
             "Content-Type": "application/json", 
             "Authorization": `Bearer ${token}`
           },
-          body: JSON.stringify({
-            usuario:{
-              username: usuario.username,
-              password: usuario.password,
-              id_rol: usuario.id_rol,
-              id_persona : usuario.id_persona
-            },
-          }),
+          body: JSON.stringify({  
+            username: usuario.username,
+            password:  usuario.password,
+            id_persona: +usuario.id_persona,
+            id_rol: +usuario.id_rol,
+        }),
         });
         if (res.ok) {
-          setUsuarios(
-            usuarios.map((item)=> item.id_usuario == usuarioSeleccionado? usuario:item)
-          )
-          limpiarForm()
-          setVisible(false)
+          setUsuarios( await res.json());
+          limpiarForm();
+          setVisible(false);
         } else {
-          alert("Error al editar la usuario.");
+          alert("Error al editar el usuario.");
         }
       }
   
     }
+    
+    const cancelarEdicion = () => {
+      limpiarForm();
+      setVisible(false);
+    };
+  
     
     function limpiarForm() {
       setUsuario({
@@ -173,7 +184,7 @@ function Usuarios() {
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Username</label>
                                     <input
                                         onChange={(e)=>{setUsuario({...usuario, username: e.target.value})}}
-                                        value={usuario.username}
+                                        value={usuario.username || ''}
                                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         id="Username"
                                         name="Username"
@@ -181,20 +192,21 @@ function Usuarios() {
                                         placeholder="Ingresar username"
                                         required
                                     />
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Password">Password</label>
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Password</label>
                                     <input
                                         onChange={(e)=>{setUsuario({...usuario, password: e.target.value})}}
-                        
+                                
                                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="Password"
-                                        name="Password"
+                                        id="password"
+                                        name="password"
                                         type="password"
                                         placeholder="Ingresar password"
+                                        value={usuario.password || ''}
                                         required
                                     />
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Tipo">Roles:</label>
-                                    <select onChange={(e)=>{setUsuario({...usuario, id_rol: e.target.value})}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                    value={usuario.id_rol}>
+                                    <select onChange={(e)=>{setUsuario({...usuario, id_rol: +e.target.value})}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    value={usuario.id_rol || ''}>
                                         <option value="0" >Seleccionar</option>
                                     {
                                     roles.map((item,index)=>(
@@ -205,33 +217,41 @@ function Usuarios() {
                                     </select>
 
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Tipo">Persona:</label>
-                                    <select onChange={(e)=>{setUsuario({...usuario, id_persona: e.target.value})}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                    value={usuario.id_persona}>
+                                    <select onChange={(e) => { setUsuario({ ...usuario, id_persona: +e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    value={usuario.id_persona || ''}>
                                         <option value="0" >Seleccionar</option>
                                     {
                                     personas.map((item,index)=>(
-                                        <option value={item.id_persona} key={index}>
+                                        <option value={item.id_persona} key={index} >
                                                 {item.nombre}
                                         </option>
                                      ))}
                                     </select>
                                 
                                 </div>
-                                {/* Input */}
-
-                                {/* Botón Agregar */}
-                                {visible == false && (<button
-                                    onClick={()=>{agregarUsuario()}}
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                 > Agregar Usuario </button>)}
-                                {/* Botón Agregar */}
-
-                                {/* Botón Editar */}
-                                {visible == true && (<button
-                                    onClick={()=>{edicionUsuario()}}
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                >Editar Usuario</button>)}
-                                {/* /Botón  Editar*/}
+                                {visible ? (
+                            <input
+                              onClick={edicionUsuario}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Editar Usuario"
+                            />
+                          ) : (
+                            <input
+                              onClick={agregarUsuario}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Agregar Usuario"
+                            />
+                          )}
+                            {visible && (
+                            <input
+                              type="submit"
+                              onClick={cancelarEdicion}
+                              className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                              value="Cancelar"
+                            />
+                            )}
                         </div>
                     </div>
                     <div className="py-2  w-full ml-5 t-0 -mt-12">
@@ -245,10 +265,10 @@ function Usuarios() {
                                             Username
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            Id Roles
+                                            Rol
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            Id Persona
+                                            Persona
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                             Acciones
@@ -258,23 +278,24 @@ function Usuarios() {
                                 {/* Inicio del Listado */}
                                 <tbody id="listado-Usuarios" className="bg-white">
                                     {/* Inicio del Item del Listado */}
-                                    {usuarios.map((item,index)=>(
-                                        <tr key={index}>
-                                            <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {item.usuario.username}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {item.persona.id_persona}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {item.rol.id_rol}
-                                            </th> 
-                                            <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                <span onClick={()=>{eliminarUsuario(item.id_usuario)}}>🗑️</span>
-                                                <span onClick={()=>{clickUsuario(item)}}>📝</span>
-                                            </th>
-                                        </tr>
-                                     ))}
+                                    {usuarios.map(({usuario,rol, persona}) => (
+                                    <tr key={usuario.id_usuario}>
+                                        <th className="px-6 py-3 border-b border-gray-200 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                            {usuario.username}
+                                        </th>
+                                        <th className="px-6 py-3 border-b border-gray-200 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                            {rol.nombre}
+                                        </th> 
+                                        <th className="px-6 py-3 border-b border-gray-200 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                            {persona.nombre}
+                                        </th> 
+                                        <th className="px-6 py-3 border-b border-gray-200 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                            <span onClick={() => { eliminarUsuario(usuario.id_usuario) }}>🗑️</span>
+                                            <span onClick={() => { clickUsuario({usuario,rol, persona}) }}>📝</span>
+                                        </th>
+                                    </tr>
+                                ))}
+
                                     {/* Fin del Item del Listado */}
                                 </tbody>
                                 {/* Fin del Listado */}

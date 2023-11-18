@@ -31,7 +31,8 @@ function App() {
             <Route path="/" element={<><BarraLateral></BarraLateral><Dashboard /></>}></Route>
             <Route path="/ventas" element={<><BarraLateral></BarraLateral><Ventas /></>}></Route>
         </Routes>
-    </div>
+      </div>
+      
     </>
   );
 }

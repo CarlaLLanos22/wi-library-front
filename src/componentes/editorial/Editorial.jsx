@@ -25,7 +25,7 @@ function Editorial() {
         .then((res) => res.json())
         .then((editoriales) => setEditoriales(editoriales));
         
-    }, []);
+    }, [editoriales]);
 
     useEffect(() => {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -105,6 +105,11 @@ function Editorial() {
       }
   
     }
+    const cancelarEdicion = () => {
+      limpiarForm();
+      setVisible(false);
+    };
+  
     
     function limpiarForm() {
       setEditorial({
@@ -134,24 +139,31 @@ function Editorial() {
                                         placeholder="editorial"
                                     />
                                 </div>
-                                {/* Input */}
+                                
 
-                                {/* Botón Agregar */}
-                                {visible == false && (<input
-                                    onClick={()=>{agregarEditorial()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Agregar Editorial"
-                                />)}
-                                {/* Botón Agregar */}
-
-                                {/* Botón Editar */}
-                                {visible == true && (<input
-                                    onClick={()=>{edicionEditorial()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Editar Editorial"
-                                />)}
+                                {visible ? (
+                            <input
+                              onClick={edicionEditorial}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Editar Editorial"
+                            />
+                          ) : (
+                            <input
+                              onClick={agregarEditorial}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Agregar Editorial"
+                            />
+                          )}
+                            {visible && (
+                            <input
+                              type="submit"
+                              onClick={cancelarEdicion}
+                              className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                              value="Cancelar"
+                            />
+                            )}
                                 {/* /Botón  Editar*/}
                             </div>
                         </div>

@@ -10,7 +10,7 @@ function Libros() {
 
     const [libro, setLibro] = useState({
         nombre: "",
-        año: null,
+        año: 0,
         tipo: "",
         isbn: "",
         precio:0,
@@ -26,7 +26,6 @@ function Libros() {
   const [editorial, setEditorial] = useState([])
   const [proveedor, setProveedor] = useState([])
   const [libroSeleccionada, setLibroSeleccionada] = useState({})
-  const [errores, setErrores] = useState('')
   const [visible, setVisible] = useState(false)
   
 
@@ -50,26 +49,7 @@ function Libros() {
     !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
   }, []);
 
-  const clickLibro = async (libro) => {
-    if (libro && libro.id_libro) {
-      setLibroSeleccionada(libro.id_libro);
-      setLibro({
-        nombre: libro.nombre,
-        año: libro.año,
-        tipo: libro.tipo,
-        isbn: libro.isbn,
-        precio:libro.precio,
-        nombre_autor: libro.nombre_autor,
-        nombre_editorial: libro.nombre_editorial,
-        nombre_proveedor: libro.nombre_proveedor,
-        nombre_categoria: libro.nombre_categoria,
-      });
-      setVisible(true);
-    } else {
-      console.error('El objeto libro no tiene la propiedad id_libro.');
-    }
-  };
-  
+ 
 
 
    useEffect(() => {
@@ -119,22 +99,28 @@ function Libros() {
       
    }, []);
   
+  const clickLibro = async (libro) => {
+    if (libro && libro.id_libro) {
+      setLibroSeleccionada(libro.id_libro);
+      setLibro({
+        nombre: libro.nombre,
+        año: libro.año,
+        tipo: libro.tipo,
+        isbn: libro.isbn,
+        precio:libro.precio,
+        id_autor: libro.id_autor,
+        id_categoria: libro.id_categoria,
+        id_editorial: libro.id_editorial,
+        id_proveedor: libro.id_proveedor,
+      });
+      setVisible(true);
+    } else {
+      console.error('El objeto libro no tiene la propiedad id_libro.');
+    }
+  };
+  
   
   const agregarLibros = async () => {
-    
-    // setErrores(''); 
-
-    // // Validamos antes de hacer el post
-    // if (libro.nombre === '' || +libro.id_categoria === 0) {
-    //   setErrores('Todos los campos son obligatorios');
-  
-
-    //   setTimeout(() => {
-    //     setErrores('');
-    //   }, 3000);
-  
-    //   return;
-    // }
     const res = await fetch("http://localhost:3000/libros", {
       method: "POST",
       headers: { 
@@ -207,6 +193,11 @@ function Libros() {
     setVisible(false)
   };
 
+  const cancelarEdicion = () => {
+    limpiarForm();
+    setVisible(false);
+  };
+
   function limpiarForm() {
     setLibro({
       nombre: "",
@@ -228,9 +219,6 @@ function Libros() {
           <h2 className="text-3xl font-light text-center">Nuevo Libro</h2>
             <div className="flex flex-col mt-10 items-center">
           <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
-            {/* {
-              errores.length > 0 && <span className="block bg-red-600 text-white font-bold px-1 text-center mb-1 rounded-xl">{ errores   }</span>
-       } */}
                     <div className=" shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
                       
                         <div id="formulario" className="bg-white p-3">
@@ -301,7 +289,7 @@ function Libros() {
                 </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categorias">Categorias:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_categoria : e.target.value })}}
+                                <select onChange={(e)=>{ setLibro({...libro, id_categoria : +e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 value={libro.id_categoria}>
                                   <option value="0" >Seleccionar</option>
                                     {
@@ -314,7 +302,7 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="autores">Autores:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_autor : e.target.value })}}
+                                <select onChange={(e)=>{ setLibro({...libro, id_autor : e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                  value={libro.id_autor} >
                                
                                 <option value="0" >Seleccionar</option>
@@ -328,7 +316,7 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="editorial">Editoriales:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_editorial : e.target.value })}}
+                                <select onChange={(e)=>{ setLibro({...libro, id_editorial : e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                  value={libro.id_editorial}>
                                 <option value="0" >Seleccionar</option>
                                     {
@@ -341,7 +329,7 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="proveedor">Proveedores:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_proveedor: e.target.value })}}
+                                <select onChange={(e)=>{ setLibro({...libro, id_proveedor: e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 value={libro.id_proveedor}>
                                 <option value="0" >Seleccionar</option>
                                     {
@@ -354,20 +342,32 @@ function Libros() {
                             </div>
 
                             {/* Botón */}
-                            {visible == false && (<input
-                                    onClick={()=>{agregarLibros()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Agregar Libro"
-                                />)}
-                            {/* /Botón */}
-                            {/* Botón Editar */}
-                            {visible == true && (<input
-                                    onClick={()=>{edicionLibro()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Editar Libro"
-                                />)}
+                          
+                          {/* /Botón Cancelar */}
+                          {/* Botón Agregar o Editar */}
+                          {visible ? (
+                            <input
+                              onClick={edicionLibro}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Editar Libro"
+                            />
+                          ) : (
+                            <input
+                              onClick={agregarLibros}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Agregar Libro"
+                            />
+                          )}
+                            {visible && (
+                            <input
+                              type="submit"
+                              onClick={cancelarEdicion}
+                              className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                              value="Cancelar"
+                            />
+                            )}
                                 {/* /Botón  Editar*/}
                         </div>
                     </div>
@@ -415,38 +415,38 @@ function Libros() {
                         </thead>
                         <tbody id="listado-Libros" className="bg-white">
                   {
-                    libros.map(({ id_libro, nombre, año, tipo , isbn, precio, nombre_autor, nombre_categoria, nombre_editorial,nombre_proveedor})=>(
-                                        <tr key={id_libro}>
+                    libros.map((l)=>(
+                                        <tr key={l.id_libro}>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {nombre}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {año}
+                                                {l.nombre}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {tipo}
+                                                {l.año}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {isbn}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                  {nombre_autor}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                  {nombre_proveedor}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {nombre_categoria}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                {precio}
-                                            </th>
-                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                  {nombre_editorial}
+                                                {l.tipo}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                <span onClick={()=>{eliminarLibro(id_libro)}}>🗑️</span>
-                                                <span onClick={()=>{clickLibro({ id_libro, nombre, año, tipo, isbn, precio, nombre_autor, nombre_editorial, nombre_proveedor, nombre_categoria })}}>📝</span>
+                                                {l.isbn}
+                                            </th>
+                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                  {l.nombre_autor}
+                                            </th>
+                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                  {l.nombre_proveedor}
+                                            </th>
+                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                {l.nombre_categoria}
+                                            </th>
+                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                {l.precio}
+                                            </th>
+                                            <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                  {l.nombre_editorial}
+                                            </th>
+                                            <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                                <span onClick={()=>{eliminarLibro(l.id_libro)}}>🗑️</span>
+                                                <span onClick={()=>{clickLibro({ ...l })}}>📝</span>
                                             </th>
                                         </tr>
                                         
@@ -454,7 +454,7 @@ function Libros() {
                                     
                         </tbody>
                     </table>
-                  </div>
+                  </div>``
                 </div>
               </div>
 
