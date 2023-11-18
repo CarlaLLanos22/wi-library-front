@@ -148,7 +148,7 @@ useEffect(() => {
                                 id="nombre"
                                 name="nombre"
                                 type="text"
-                                placeholder="Nombre"
+                                placeholder="Ingresar nombre del proveedor"
                                 value={proveedor.nombre}
                                 onChange={(e)=>{setProveedor({...proveedor, nombre: e.target.value})}}
                             />
@@ -161,7 +161,7 @@ useEffect(() => {
                                 id="direccion"
                                 name="direccion"
                                 type="text"
-                                placeholder="Direccion"
+                                placeholder="Ingresar direccion del proveedor"
                                 value={proveedor.direccion}
                                 onChange={(e)=>{setProveedor({...proveedor, direccion: e.target.value})}}
                             />
@@ -189,7 +189,7 @@ useEffect(() => {
                                 name="mail"
                                 type="text"
                                 value={proveedor.mail}
-                                placeholder="Agregar mail"
+                                placeholder="Mail del proveedor"
                                 onChange={(e)=>{setProveedor({...proveedor, mail: e.target.value})}}
                             />
                         </div>
@@ -234,6 +234,9 @@ useEffect(() => {
                             </th>
                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                     Mail
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                                    Acciones
                             </th>
                             
                         </tr>

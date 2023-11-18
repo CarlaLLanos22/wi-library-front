@@ -30,33 +30,33 @@ function Login() {
   return (
     <>
       <main className="w-full px-5 py-10 bg-gray-200 ">
-          <h2 className="text-3xl font-light text-center">Iniciar Sesión</h2>
+          <h2 className="text-3xl font-light text-center">Iniciar sesión</h2>
             <div className="flex flex-col mt-10 items-center">
                 <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
                     <div className=" shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
                           <div className="bg-white p-3">
                           {/* Input */}
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Username</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Usuario</label>
                                 <input 
                                     onChange={(e)=>{setUsuario({...usuario, username: e.target.value}) }}
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="Username"
                                     name="Username"
                                     type="text"
-                                    placeholder="Ingresar Nombre de Usuario"
+                                    placeholder="Nombre de usuario"
                                 />
                             </div>
                             {/* Input */}
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Password">Password</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Password">Contraseña</label>
                                 <input 
                                     onChange={(e)=>{ setUsuario({...usuario, password: e.target.value })}}
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="Password"
                                     name="Password"
                                     type="Password"
-                                    placeholder="Introduzca contraseña"
+                                    placeholder="Contraseña"
                                 />
                             </div>
 

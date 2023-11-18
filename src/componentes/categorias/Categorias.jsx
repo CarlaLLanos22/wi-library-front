@@ -116,7 +116,7 @@ function Categorias() {
     return (
         <>
             <main className="md:w-3/5  xl:w-4/5 px-5 py-10 bg-gray-200">
-                <h2 className="text-3xl font-light text-center">Nuevo Categoria</h2>
+                <h2 className="text-3xl font-light text-center">Nueva Categoria</h2>
                 <div className="flex flex-col mt-10 items-center">
                     <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
                         <div className=" shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
@@ -131,7 +131,7 @@ function Categorias() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar nombre de la Categoria"
+                                        placeholder="Ingresar nombre de la categoria"
                                     />
                                 </div>
                                 {/* Input */}

@@ -149,7 +149,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar nombre de la Autor"
+                                        placeholder="Ingresar nombre del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -164,7 +164,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar apellido del Autor"
+                                        placeholder="Ingresar apellido del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -179,7 +179,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar nacionalidad de la Autor"
+                                        placeholder="Ingresar nacionalidad del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -194,7 +194,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar biografia de la Autor"
+                                        placeholder="Ingresar biografia del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -206,10 +206,10 @@ function Autores() {
                                         onChange={(e)=>{setAutor({...autor, fecha_nacimiento: e.target.value})}}
                                         value={autor.fecha_nacimiento}
                                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="Nombre"
-                                        name="Nombre"
+                                        id="fechanacimiento"
+                                        name="fechanacimiento"
                                         type="date"
-                                        placeholder="Ingresar fecha de nacimiento  de la Autor"
+                                        placeholder="Ingresar fecha de nacimiento del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -257,10 +257,10 @@ function Autores() {
                                             biografia
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            fecha_nacimiento
+                                            Fecha Nacimiento
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            id_autor
+                                            Id Autor
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                             Acciones

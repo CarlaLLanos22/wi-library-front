@@ -131,7 +131,7 @@ function Roles() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar nombre de la Rol"
+                                        placeholder="Ingresar nombre del rol"
                                     />
                                 </div>
                                 {/* Input */}

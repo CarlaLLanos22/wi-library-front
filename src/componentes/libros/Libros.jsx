@@ -243,7 +243,7 @@ function Libros() {
                                     id="nombre"
                                     name="nombre"
                                     type="text"
-                                    placeholder="nombre"
+                                    placeholder="Nombre de libro"
                                     onChange={(e)=>{setLibro({...libro, nombre: e.target.value})}}
                                 />
                             </div>
@@ -256,7 +256,7 @@ function Libros() {
                                     id="año"
                                     name="año"
                                     type="number"
-                                    placeholder="año"
+                                    placeholder="Año en el que se publicó"
                                     onChange={(e)=>{setLibro({...libro, año: e.target.value})}}
                                 />
                             </div>
@@ -277,10 +277,10 @@ function Libros() {
                                 <input 
                                     value={libro.tipo}
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="tipo"
-                                    name="tipo"
+                                    id="formato"
+                                    name="formato"
                                     type="text"
-                                    placeholder="formato"
+                                    placeholder="Formato del libro"
                                     onChange={(e)=>{setLibro({...libro, tipo: e.target.value})}}
                                     
                                 />
@@ -300,7 +300,7 @@ function Libros() {
                                 />
                 </div>
                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categorias">Categorias:</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categorias">Categoria:</label>
                                 <select onChange={(e)=>{ setLibro({...libro, id_categoria : e.target.value })}}
                                 value={libro.id_categoria}>
                                   <option value="0" >Seleccionar</option>
@@ -313,7 +313,7 @@ function Libros() {
                                 </select>
                             </div>
                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="autores">Autores:</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="autores">Autor:</label>
                                 <select onChange={(e)=>{ setLibro({...libro, id_autor : e.target.value })}}
                                  value={libro.id_autor} >
                                
@@ -327,7 +327,7 @@ function Libros() {
                                 </select>
                             </div>
                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="editorial">Editoriales:</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="editorial">Editorial:</label>
                                 <select onChange={(e)=>{ setLibro({...libro, id_editorial : e.target.value })}}
                                  value={libro.id_editorial}>
                                 <option value="0" >Seleccionar</option>
@@ -340,7 +340,7 @@ function Libros() {
                                 </select>
                             </div>
                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="proveedor">Proveedores:</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="proveedor">Proveedor:</label>
                                 <select onChange={(e)=>{ setLibro({...libro, id_proveedor: e.target.value })}}
                                 value={libro.id_proveedor}>
                                 <option value="0" >Seleccionar</option>
