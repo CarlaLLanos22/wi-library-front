@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         callback();
       }
     } catch (e) {
-      alert(e.response.data.error)
+      alert("Error al ingresar. Revise usuario y/o clave")
       error();
     }
   };

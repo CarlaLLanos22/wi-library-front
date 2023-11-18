@@ -15,7 +15,6 @@ function Ventas() {
         id_cliente:0
     })
 
-    const [ventas, setVentas] = useState([]);
     const [libros, setLibros] = useState([])
     const [detalles, setDetalles]=useState([])
     const [detallesFiltrados, setDetallesFiltrados]=useState([])
@@ -28,7 +27,7 @@ function Ventas() {
               "Authorization": `Bearer ${token}` 
             }
           })
-            .then((res) => res.status == 401 ? volverLogin() : res.json() )
+            .then((res) => res.json())
             .then((libros) => { 
               setLibros(libros) 
               setDetallesFiltrados(libros)
@@ -40,22 +39,20 @@ function Ventas() {
           "Authorization": `Bearer ${token}` 
         }
       })
-        .then((res) => res.status == 401 ? volverLogin() : res.json() )
+        .then((res) => res.json() )
         .then((personas) => setPersonas(personas));
     }, []);
 
   
     useEffect(() => {
-      !localStorage.getItem("token") ?  volverLogin() : null
+      !localStorage.getItem("token") ?  navigate('/login',{ replace: true }) : null
     }, []);
 
 
-    const volverLogin = () =>{
-      navigate('/login',{ replace: true })
-    }
-  
     const finalizarVenta = async () => {
       const tokenDecode = jwtDecode(localStorage.getItem("token"));
+
+      // Doy de alta la venta
 
       const res = await fetch("http://localhost:3000/ventas", {
         method: "POST",
@@ -95,9 +92,6 @@ function Ventas() {
         alert("✅ ¡Venta creada exitosamente!")
       
       } else {
-        if (res.status == 401){
-          volverLogin()
-        } 
         alert("⚠️ ¡Error al crear la venta!")
       }
       setDetalles([])
@@ -129,15 +123,20 @@ function Ventas() {
       if (venta.cantidad==0 || venta.cantidad > stock){
         alert("La cantidad ingresada es incorrecta")
       }else{
+
+        // Agrego al detalle
         const libroSeleccionado = libros.filter((item)=>item.id_libro==id_libro)[0]
         libroSeleccionado['cantidad'] = parseInt(venta.cantidad)
         const nuevoDetalle = [...detalles, libroSeleccionado]
-        
         setDetalles(nuevoDetalle)
+        
+        //Quito del filtro
         setDetallesFiltrados(detallesFiltrados.filter((item)=>item.id_libro != id_libro ))
-  
+        
+        //Calcular el total
         const totalActual = nuevoDetalle.reduce((acc,item)=>acc+(item.precio*item.cantidad),0)
       
+        //Guardar el total en la venta
         setVenta({
           ...venta,
           nombre: '',
@@ -148,10 +147,18 @@ function Ventas() {
     }
 
     function eliminarLibro(libro){
+
+      // Quito el libro del detalle
       const detalleSinLibro = detalles.filter((item)=>item.id_libro != libro.id_libro )
       setDetalles(detalleSinLibro)
+      
+      // Agregamos el libro al filtro
       setDetallesFiltrados([...detallesFiltrados,libro])
+
+      // Vuelvo a Calcular el Total
       const totalActual = detalleSinLibro.reduce((acc,item)=>acc+(item.precio*item.cantidad),0)
+      
+      // Cambio de nuevo el total
       setVenta({
         ...venta,
         nombre: '',

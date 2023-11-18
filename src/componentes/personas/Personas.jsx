@@ -13,7 +13,7 @@ function Personas() {
         email : "",
         telefono: "",
         direccion : "",
-        tipo: ""
+        tipo: "cliente"
     })
 
     const [personas, setPersonas] = useState([]);
@@ -135,7 +135,7 @@ function Personas() {
         email:'',
         telefono: 0,
         direccion:'',
-        tipo: ""
+        tipo: "cliente"
       })
       setVisible(false)
     }
@@ -225,15 +225,11 @@ function Personas() {
                                  {/* Input */}
                                  <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Nombre">Tipo</label>
-                                    <input
-                                        onChange={(e)=>{setPersona({...persona, tipo: e.target.value})}}
-                                        value={persona.tipo}
-                                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        id="tipo"
-                                        name="tipo"
-                                        type="text"
-                                        placeholder="Ingresar tipo"
-                                    />
+                                    <select onChange={(e)=>{setPersona({...persona, tipo: e.target.value})}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    value={persona.tipo}>
+                                      <option value="cliente" >Cliente</option>
+                                      <option value="empleado" >Empleado</option>
+                                    </select>
                                 </div>
                                 {visible ? (
                                     <input

@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 function Categorias() {
     
     const navigate = useNavigate();
-
     const token = localStorage.getItem('token')
-
     const [categoria,setCategoria] = useState({
         nombre : ''
     })
@@ -14,8 +12,9 @@ function Categorias() {
     const [categorias, setCategorias] = useState([]);
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState({})
     const [visible, setVisible] = useState(false)
-  
+    
     useEffect(() => {
+      
       fetch("http://localhost:3000/categorias",{
         method: "GET",
         headers: {
@@ -37,6 +36,12 @@ function Categorias() {
       setVisible(true)
     };
     
+
+    function mensajeError(){
+      let mensaje = "Ha ocurrido un error"
+      categoria.nombre == '' ? mensaje = mensaje + "\n Nombre vacio" : null
+      return mensaje
+    }
   
     const eliminarCategoria = async (categoriaId) => {
       if (window.confirm("¿Desea eliminar ?")) {
@@ -73,7 +78,7 @@ function Categorias() {
         const categoriaNueva = await res.json();
         setCategorias([...categorias, categoriaNueva]);
       } else {
-        console.log("Fallo al crear Categoria");
+        alert(mensajeError());
       }
       limpiarForm()
       setVisible(false)

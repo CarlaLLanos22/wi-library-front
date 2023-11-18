@@ -194,8 +194,8 @@ function Editorial() {
                                                 {item.nombre}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                <span onClick={()=>{eliminarEditorial(item.id_editorial)}}>🗑️</span>
-                                                <span onClick={()=>{clickEditorial(item)}}>📝</span>
+                                                <span className="cursor-pointer" onClick={()=>{eliminarEditorial(item.id_editorial)}}>🗑️</span>
+                                                <span className="cursor-pointer"  onClick={()=>{clickEditorial(item)}}>📝</span>
                                             </th>
                                         </tr>
                                      ))}
