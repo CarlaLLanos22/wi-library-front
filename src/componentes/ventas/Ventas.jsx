@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 function Ventas() {
     
@@ -11,11 +12,10 @@ function Ventas() {
         cantidad: 0,
         descuento: 0,
         total: 0,
-        id_persona:0
+        id_cliente:0
     })
 
     const [ventas, setVentas] = useState([]);
-    const [visible, setVisible] = useState(false)
     const [libros, setLibros] = useState([])
     const [detalles, setDetalles]=useState([])
     const [detallesFiltrados, setDetallesFiltrados]=useState([])
@@ -54,7 +54,9 @@ function Ventas() {
       navigate('/login',{ replace: true })
     }
   
-    const agregarVenta = async () => {
+    const finalizarVenta = async () => {
+      const tokenDecode = jwtDecode(localStorage.getItem("token"));
+
       const res = await fetch("http://localhost:3000/ventas", {
         method: "POST",
         headers: { 
@@ -63,33 +65,58 @@ function Ventas() {
         },
         body: JSON.stringify({
           venta: {
-            nombre: venta.nombre,
+            id_vendedor: parseInt(tokenDecode.id_persona),
+            id_cliente: parseInt(venta.id_cliente),
+            descuento: parseInt(venta.descuento)
           },
         }),
       });
   
       if (res.ok) {
         const ventaNueva = await res.json();
-        setVentas([...ventas, ventaNueva]);
+        detalles.forEach(async (libro) => {
+          const res = await fetch(`http://localhost:3000/ventas-productos`, {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              ventaProducto:{
+                id_libro: libro.id_libro,
+                id_venta: ventaNueva.id,
+                precio: libro.precio,
+                cantidad: parseInt(libro.cantidad)
+              }
+            }),
+          });
+        });
+
+        alert("✅ ¡Venta creada exitosamente!")
+      
       } else {
         if (res.status == 401){
           volverLogin()
         } 
-        console.log("Fallo al crear Venta");
+        alert("⚠️ ¡Error al crear la venta!")
       }
+      setDetalles([])
+      setDetallesFiltrados(libros)
       limpiarForm()
-      setVisible(false)
+      setVenta({
+        total:0,
+        descuento:0,
+        nombre: '',
+        cantidad: 0
+      })
     };
   
-
-    
     function limpiarForm() {
       setVenta({
         ...venta,
         nombre: '',
         cantidad: 0
       })
-      setVisible(false)
     }
 
     function filtrarLibro(nombre) {
@@ -151,8 +178,8 @@ function Ventas() {
                             <div id="formulario" className="bg-white p-3">
                               <br></br>
                               <label  className="mr-5 pt-10 text-gray-700 text-sm font-bold mb-2" htmlFor="Cliente">Elegir Cliente</label>
-                                <select className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e)=>{ setVenta({...venta, id_persona : e.target.value })}}
-                                value={venta.id_persona}>
+                                <select className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e)=>{ setVenta({...venta, id_cliente : e.target.value })}}
+                                value={venta.id_cliente}>
                                   <option value="0" >Seleccionar</option>
                                     {
                                     personas.map((item,index)=>(
@@ -273,8 +300,8 @@ function Ventas() {
 
                             <h2 className="text-3xl font-light text-center">TOTAL = ${ venta.total - (venta.total*venta.descuento/100) } </h2>
                             {/* Botón Agregar */}
-                            {visible == false && (<button
-                                    onClick={()=>{agregarDescuento()}}
+                            {(detalles.length > 0 && venta.id_cliente > 0) && (<button
+                                    onClick={()=>{finalizarVenta()}}
                                     className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
                                 >Finalizar Venta</button>)}
                                 {/* Botón Agregar */}
