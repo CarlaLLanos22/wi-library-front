@@ -187,8 +187,8 @@ function Categorias() {
                                                 {item.nombre}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                <span onClick={()=>{eliminarCategoria(item.id_categoria)}}>🗑️</span>
-                                                <span onClick={()=>{clickCategoria(item)}}>📝</span>
+                                                <span className="cursor-pointer" onClick={()=>{eliminarCategoria(item.id_categoria)}}>🗑️</span>
+                                                <span className="cursor-pointer" onClick={()=>{clickCategoria(item)}}>📝</span>
                                             </th>
                                         </tr>
                                      ))}

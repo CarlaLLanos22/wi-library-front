@@ -297,8 +297,8 @@ function Autores() {
                                                 {item.fecha_nacimiento}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                <span onClick={()=>{eliminarAutor(item.id_autor)}}>🗑️</span>
-                                                <span onClick={()=>{clickAutor(item)}}>📝</span>
+                                                <span className="cursor-pointer" onClick={()=>{eliminarAutor(item.id_autor)}}>🗑️</span>
+                                                <span className="cursor-pointer" onClick={()=>{clickAutor(item)}}>📝</span>
                                             </th>
                                         </tr>
                                      ))}

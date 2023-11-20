@@ -445,8 +445,8 @@ function Libros() {
                                                   {l.nombre_editorial}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                <span onClick={()=>{eliminarLibro(l.id_libro)}}>🗑️</span>
-                                                <span onClick={()=>{clickLibro({ ...l })}}>📝</span>
+                                                <span className="cursor-pointer" onClick={()=>{eliminarLibro(l.id_libro)}}>🗑️</span>
+                                                <span className="cursor-pointer" onClick={()=>{clickLibro({ ...l })}}>📝</span>
                                             </th>
                                         </tr>
                                         

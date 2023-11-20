@@ -60,7 +60,9 @@ function ListadoVentas() {
             vendedor: item.vendedor.nombre + " " + item.vendedor.apellido,
             fecha_alta: item.ventas.fecha_alta.slice(0,10),
             total: libros.reduce((acc,item)=> acc + (item.cantidad * item.precio),0),
-            libros: libros})
+            libros: libros
+          })
+          console.log(item);
         });
     }
 

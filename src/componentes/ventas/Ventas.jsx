@@ -188,12 +188,13 @@ function Ventas() {
                                 <select className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onChange={(e)=>{ setVenta({...venta, id_cliente : e.target.value })}}
                                 value={venta.id_cliente}>
                                   <option value="0" >Seleccionar</option>
-                                    {
-                                    personas.map((item,index)=>(
-                                        <option value={item.id_persona} key={index}>
-                                                {item.apellido}, {item.nombre} ({item.email}) 
+                                  {personas
+                                      .filter((persona) => persona.tipo === "cliente")
+                                      .map((item, index) => (
+                                        <option key={index} value={item.id_persona}>
+                                          {item.apellido}, {item.nombre}, ({item.email})
                                         </option>
-                                     ))}
+                                      ))}
                                 </select>
                                 <label  className="ml-40 text-gray-700 text-sm font-bold mb-2" htmlFor="Descuento">Fecha</label>
                                 <label className="ml-10">{devolverFecha()}</label>

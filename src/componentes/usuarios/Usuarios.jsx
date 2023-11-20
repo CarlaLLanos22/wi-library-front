@@ -290,8 +290,8 @@ function Usuarios() {
                                             {persona.nombre}
                                         </th> 
                                         <th className="px-6 py-3 border-b border-gray-200 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            <span onClick={() => { eliminarUsuario(usuario.id_usuario) }}>🗑️</span>
-                                            <span onClick={() => { clickUsuario({usuario,rol, persona}) }}>📝</span>
+                                            <span className="cursor-pointer" onClick={() => { eliminarUsuario(usuario.id_usuario) }}>🗑️</span>
+                                            <span className="cursor-pointer" onClick={() => { clickUsuario({usuario,rol, persona}) }}>📝</span>
                                         </th>
                                     </tr>
                                 ))}

@@ -313,8 +313,8 @@ function Personas() {
                                                 {item.tipo}
                                             </th>
                                             <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                                <span onClick={()=>{eliminarPersona(item.id_persona)}}>🗑️</span>
-                                                <span onClick={()=>{clickPersona(item)}}>📝</span>
+                                                <span className="cursor-pointer" onClick={()=>{eliminarPersona(item.id_persona)}}>🗑️</span>
+                                                <span className="cursor-pointer" onClick={()=>{clickPersona(item)}}>📝</span>
                                             </th>
                                         </tr>
                                      ))}
