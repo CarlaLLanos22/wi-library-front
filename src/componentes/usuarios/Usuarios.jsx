@@ -190,7 +190,7 @@ function Usuarios() {
                         <div className=" bg-white p-3 shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
                                 {/* Input */}
                                 <div className="mb-4">
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Username</label>
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Usuario</label>
                                     <input
                                         onChange={(e)=>{setUsuario({...usuario, username: e.target.value})}}
                                         value={usuario.username || ''}
@@ -198,10 +198,10 @@ function Usuarios() {
                                         id="Username"
                                         name="Username"
                                         type="text"
-                                        placeholder="Ingresar username"
+                                        placeholder="Ingresar nombre usuario"
                                         required
                                     />
-                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Password</label>
+                                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">Contraseña</label>
                                     <input
                                         onChange={(e)=>{setUsuario({...usuario, password: e.target.value})}}
                                 
@@ -209,7 +209,7 @@ function Usuarios() {
                                         id="password"
                                         name="password"
                                         type="password"
-                                        placeholder="Ingresar password"
+                                        placeholder="Ingresar una contraseña"
                                         value={usuario.password || ''}
                                         required
                                     />
@@ -271,7 +271,7 @@ function Usuarios() {
                                 <thead className="bg-gray-100 ">
                                     <tr>
                                         <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            Username
+                                            Usuario
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                             Rol

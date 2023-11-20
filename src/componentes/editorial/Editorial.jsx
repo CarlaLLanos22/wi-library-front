@@ -142,7 +142,7 @@ function Editorial() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="editorial"
+                                        placeholder="Ingresar nombre de la editorial"
                                     />
                                 </div>
                                 

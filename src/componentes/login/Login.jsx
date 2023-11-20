@@ -40,26 +40,26 @@ function Login() {
                           <div className="bg-white p-3">
                           {/* Input */}
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Username</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Usuario</label>
                                 <input 
                                     onChange={(e)=>{setUsuario({...usuario, username: e.target.value}) }}
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="Username"
                                     name="Username"
                                     type="text"
-                                    placeholder="Ingresar Nombre de Usuario"
+                                    placeholder="Ingresar nombre de usuario"
                                 />
                             </div>
                             {/* Input */}
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Password">Password</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Password">Contraseña</label>
                                 <input 
                                     onChange={(e)=>{ setUsuario({...usuario, password: e.target.value })}}
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="Password"
                                     name="Password"
                                     type="Password"
-                                    placeholder="Introduzca contraseña"
+                                    placeholder="Ingresar contraseña"
                                 />
                             </div>
 

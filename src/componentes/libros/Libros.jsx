@@ -259,7 +259,7 @@ function Libros() {
                                     id="nombre"
                                     name="nombre"
                                     type="text"
-                                    placeholder="nombre"
+                                    placeholder="Ingresar nombre del libro"
                                     onChange={(e)=>{setLibro({...libro, nombre: e.target.value})}}
                                 />
                             </div>
@@ -272,7 +272,7 @@ function Libros() {
                                     id="año"
                                     name="año"
                                     type="number"
-                                    placeholder="año"
+                                    placeholder="Ingresar año del libro"
                                     onChange={(e)=>{setLibro({...libro, año: e.target.value})}}
                                 />
                             </div>
@@ -284,7 +284,7 @@ function Libros() {
                                     id="precio"
                                     name="precio"
                                     type="number"
-                                    placeholder="precio"
+                                    placeholder="Ingresar precio del libro"
                                     onChange={(e)=>{setLibro({...libro, precio: e.target.value})}}
                                 />
                             </div>
@@ -296,7 +296,7 @@ function Libros() {
                                     id="tipo"
                                     name="tipo"
                                     type="text"
-                                    placeholder="formato"
+                                    placeholder="Ingresar formato del libro"
                                     onChange={(e)=>{setLibro({...libro, tipo: e.target.value})}}
                                     
                                 />
@@ -311,7 +311,7 @@ function Libros() {
                                     id="ISBN"
                                     name="ISBN"
                                     type="text"
-                                    placeholder="ISBN Libro"
+                                    placeholder="ISBN del Libro"
                                     onChange={(e)=>{setLibro({...libro, isbn: e.target.value})}}
                                 />
                 </div>

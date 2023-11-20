@@ -166,7 +166,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar nombre de la Autor"
+                                        placeholder="Ingresar nombre del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -181,7 +181,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar apellido del Autor"
+                                        placeholder="Ingresar apellido del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -196,7 +196,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar nacionalidad de la Autor"
+                                        placeholder="Ingresar nacionalidad del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -211,7 +211,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar biografia de la Autor"
+                                        placeholder="Ingresar biografia del autor"
                                     />
                                 </div>
                                 {/* Input */}
@@ -226,7 +226,7 @@ function Autores() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="date"
-                                        placeholder="Ingresar fecha de nacimiento  de la Autor"
+                                        placeholder="Ingresar fecha de nacimiento del autor"
                                     />
                                 </div>
                    

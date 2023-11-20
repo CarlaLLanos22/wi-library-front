@@ -198,7 +198,7 @@ function Personas() {
                                         id="Nombre"
                                         name="Nombre"
                                         type="text"
-                                        placeholder="Ingresar Email"
+                                        placeholder="Ingresar email"
                                     />
                                 </div>
                                 {/* Input */}
