@@ -72,6 +72,15 @@ function Usuarios() {
         setVisible(true);
     }
     
+    function mensajeError(){
+      let mensaje = "Ha ocurrido un error"
+      usuario.username == '' ? mensaje = mensaje + "\nUsuario vacio" : null
+      usuario.password == '' ? mensaje = mensaje + "\nContraseña vacia" : null
+      usuario.id_persona == '' ? mensaje = mensaje + "\nPersona vacia" : null
+      usuario.id_rol == '' ? mensaje = mensaje + "\nRol vacio" : null
+      return mensaje 
+    }
+    
     
   
     const eliminarUsuario = async (usuarioId) => {
@@ -118,7 +127,7 @@ function Usuarios() {
         
        
       } else {
-        alert("Fallo al crear Usuario");
+        alert(mensajeError());
       }
       setVisible(false)
 

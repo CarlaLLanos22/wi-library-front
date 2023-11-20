@@ -36,6 +36,12 @@ function Editorial() {
       setEditorial(editorial)
       setVisible(true)
     };
+
+    function mensajeError(){
+      let mensaje = "Ha ocurrido un error"
+      editorial.nombre == '' ? mensaje = mensaje + "\n Nombre vacio" : null
+      return mensaje
+    }
     
   
     const eliminarEditorial = async (editorialId) => {
@@ -73,7 +79,7 @@ function Editorial() {
         const editorialNueva = await res.json();
         setEditoriales([...editoriales, editorialNueva]);
       } else {
-        console.log("Fallo al crear Editorial");
+        alert(mensajeError())
       }
       limpiarForm()
       setVisible(false)

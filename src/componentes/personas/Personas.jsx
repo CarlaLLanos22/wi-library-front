@@ -41,6 +41,16 @@ function Personas() {
       setPersona(persona)
       setVisible(true)
     };
+
+    function mensajeError(){
+      let mensaje = "Ha ocurrido un error"
+      persona.nombre == '' ? mensaje = mensaje + "\nNombre vacio" : null
+      persona.apellido == '' ? mensaje = mensaje + "\nApellido vacio" : null
+      persona.email == '' ? mensaje = mensaje + "\nEmail vacio" : null
+      persona.telefono == '' ? mensaje = mensaje + "\nTelefono vacio" : null
+      persona.direccion == '' ? mensaje = mensaje + "\nDireccion vacio" : null
+      return mensaje 
+    }
     
   
     const eliminarPersona = async (personaId) => {
@@ -84,7 +94,7 @@ function Personas() {
         const personaNueva = await res.json();
         setPersonas([...personas, personaNueva]);
       } else {
-        console.log("Fallo al crear Persona");
+        alert(mensajeError())
       }
       limpiarForm()
       setVisible(false)

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Proveedores from "../proveedores/Proveedores";
 
 
 function Libros() {
@@ -43,7 +44,7 @@ function Libros() {
       .then((res) => res.json())
       .then((libros) => setLibros(libros));
       
-  }, []);
+  }, [libros]);
 
   useEffect(() => {
     !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -62,7 +63,7 @@ function Libros() {
       .then((res) => res.json())
       .then((autores) => setAutores(autores));
       
-  }, []);
+  }, [autores]);
    useEffect(() => {
     fetch("http://localhost:3000/proveedores",{
       method: "GET",
@@ -73,7 +74,7 @@ function Libros() {
       .then((res) => res.json())
       .then((proveedor) => setProveedor(proveedor));
       
-   }, []);
+   }, [proveedor]);
 
   
    useEffect(() => {
@@ -86,7 +87,8 @@ function Libros() {
       .then((res) => res.json())
       .then((categorias) => setCategorias(categorias));
       
-  }, []);
+  }, [categorias]);
+
    useEffect(() => {
     fetch("http://localhost:3000/editorial",{
       method: "GET",
@@ -97,7 +99,7 @@ function Libros() {
       .then((res) => res.json())
       .then((editorial) => setEditorial(editorial));
       
-   }, []);
+   }, [editorial]);
   
   const clickLibro = async (libro) => {
     if (libro && libro.id_libro) {
@@ -118,6 +120,21 @@ function Libros() {
       console.error('El objeto libro no tiene la propiedad id_libro.');
     }
   };
+
+  function mensajeError(){
+    let mensaje = "Ha ocurrido un error"
+    libro.nombre == '' ? mensaje = mensaje + "\n Nombre vacio" : null
+    libro.año == '' ? mensaje = mensaje + "\n Año vacio" : null
+    libro.precio == '' ? mensaje = mensaje + "\n Precio vacio" : null
+    libro.formato == '' ? mensaje = mensaje + "\n Formato vacio" : null
+    libro.isbn == '' ? mensaje = mensaje + "\n ISBN vacio" : null
+    libro.id_autor == '' ? mensaje = mensaje + "\n Autor vacio" : null
+    libro.id_editorial == '' ? mensaje = mensaje + "\n Editorial vacio" : null
+    libro.id_proveedor == '' ? mensaje = mensaje + "\n Proveedor vacio" : null
+    libro.id_categoria == '' ? mensaje = mensaje + "\n Categoria vacia" : null
+    return mensaje 
+  }
+
   
   
   const agregarLibros = async () => {
@@ -147,7 +164,7 @@ function Libros() {
       setVisible(false)
       limpiarForm()
     } else {
-      console.log("Fallo al crear Libro");
+      alert(mensajeError())
     }
 
     
@@ -161,11 +178,22 @@ function Libros() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify(libro),
-      });
+        body: JSON.stringify({
+          nombre: libro.nombre,
+          año: +libro.año,
+          tipo:libro.tipo,
+          isbn: libro.isbn,
+          precio:+libro.precio,
+          id_autor: +libro.id_autor,
+          id_editorial: +libro.id_editorial,
+          id_proveedor: +libro.id_proveedor,
+          id_categoria: +libro.id_categoria
+      }),
+    });
+
       if (res.ok) {
-        setLibros((libros) =>
-          libros.map((item) => (item.id_libro === libroSeleccionada ? libro : item))
+        setLibros(
+          libros.map((item) => item.id_libro === libroSeleccionada ? libro : item)
         );
         limpiarForm();
         setVisible(false);

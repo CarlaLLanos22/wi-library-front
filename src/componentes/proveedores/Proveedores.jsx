@@ -7,10 +7,10 @@ function Proveedores() {
 const navigate = useNavigate()
 const token = localStorage.getItem('token')
 const [proveedor, setProveedor] = useState({
-    nombre: null,
-    direccion: null,
+    nombre: "",
+    direccion: "",
     telefono: 0,
-    mail: null,
+    mail: "",
     id_proveedor: 0
 })
 const [proveedores, setProveedores] = useState([])
@@ -34,6 +34,24 @@ useEffect(() => {
     !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
   }, []);
 
+  const clickProveedor = async (proveedor) => {
+    setProveedorSeleccionado(proveedor.id_proveedor)
+    setProveedor(proveedor)
+    setVisible(true)
+  };
+
+
+
+  function mensajeError(){
+    let mensaje = "Ha ocurrido un error"
+    proveedor.nombre == '' ? mensaje = mensaje + "\nNombre vacio" : null
+    proveedor.direccion == '' ? mensaje = mensaje + "\nDireccion vacia" : null
+    proveedor.telefono == "" ? mensaje = mensaje + "\nTelefono vacio" : null
+    proveedor.mail == '' ? mensaje = mensaje + "\nMail vacio" : null
+    return mensaje 
+  }
+  
+
     const agregarProveedor = async () => {
     const res = await fetch("http://localhost:3000/proveedores", {
       method: "POST",
@@ -53,28 +71,30 @@ useEffect(() => {
 
     if (res.ok) {
       const proveedorNuevo = await res.json();
-      setLibros([...proveedores, proveedorNuevo]);
-      setVisible(false)
-      limpiarForm()
+      setProveedores([...proveedores, proveedorNuevo]);
     } else {
-      console.log("Fallo al crear proveedor");
+      alert(mensajeError())
     }
+    limpiarForm()
+    setVisible(false)
 }
 
-    const clickProveedor = async (proveedor) => {
-    if (proveedor && proveedor.id_proveedor) {
-      setProveedorSeleccionado(proveedor.id_proveedor);
-      setProveedor({
-        nombre: proveedor.nombre,
-        direccion: proveedor.direccion,
-        telefono: +proveedor.telefono,
-        mail: proveedor.mail,
-      });
-      setVisible(true);
-    } else {
-      console.error('El proveedor no tiene un id.');
-    }
-  };
+  //   const clickProveedor = async (proveedor) => {
+  //   if (proveedor && proveedor.id_proveedor) {
+  //     setProveedorSeleccionado(proveedor.id_proveedor);
+  //     setProveedor({
+  //       nombre: proveedor.nombre,
+  //       direccion: proveedor.direccion,
+  //       telefono: +proveedor.telefono,
+  //       mail: proveedor.mail,
+  //     });
+  //     setVisible(true);
+  //   } else {
+  //     console.error('El proveedor no tiene un id.');
+  //   }
+  // };
+
+
 
     const editarProveedor = async () => {
     if (window.confirm("¿Desea editar?")) {
@@ -89,18 +109,18 @@ useEffect(() => {
                 nombre: proveedor.nombre,
                 direccion: proveedor.direccion,
                 telefono: +proveedor.telefono,
-                mail: proveedor.mail,
+                mail: proveedor.mail
               }
         }),
       });
       if (res.ok) {
-        setProveedores((proveedores) =>
-          proveedores.map((item) => (item.id_proveedor === proveedorSeleccionado ? proveedor : item))
+        setProveedores(
+          proveedores.map((item) => item.id_proveedor == proveedorSeleccionado ? proveedor : item)
         );
         limpiarForm();
         setVisible(false);
       } else {
-        alert("Error al editar el proveedor.");
+        alert(mensajeError());
       }
     }
   };
@@ -123,7 +143,7 @@ useEffect(() => {
   };
 
   function limpiarForm() {
-    setLibro({
+    setProveedor({
       nombre: "",
       direccion: "",
       telefono: 0,
@@ -131,6 +151,10 @@ useEffect(() => {
     })
     setVisible(false)
   }
+  const cancelarEdicion = () => {
+    limpiarForm();
+    setVisible(false);
+  };
 
   return (
     <>
@@ -144,39 +168,42 @@ useEffect(() => {
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" forhtml="nombre">Nombre:</label>
                             <input 
+                                onChange={(e)=>{setProveedor({...proveedor, nombre: e.target.value})}}
+                                value={proveedor.nombre}
                                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="nombre"
                                 name="nombre"
                                 type="text"
                                 placeholder="Nombre"
-                                value={proveedor.nombre}
-                                onChange={(e)=>{setProveedor({...proveedor, nombre: e.target.value})}}
+                        
+                              
                             />
                         </div>
                         {/* Input */}
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" forhtml="direccion">Direccion:</label>
                             <input 
+                                onChange={(e)=>{setProveedor({...proveedor, direccion: e.target.value})}}
+                                value={proveedor.direccion}
                                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="direccion"
                                 name="direccion"
                                 type="text"
                                 placeholder="Direccion"
-                                value={proveedor.direccion}
-                                onChange={(e)=>{setProveedor({...proveedor, direccion: e.target.value})}}
+                                
+                             
                             />
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" forhtml="telefono">Telefono:</label>
                             <input 
+                                onChange={(e)=>{setProveedor({...proveedor, telefono: e.target.value})}}
+                                value={proveedor.telefono}
                                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="telefono"
                                 name="telefono"
                                 type="int"
-                                value={proveedor.telefono}
                                 placeholder="Telefono"
-                                onChange={(e)=>{setProveedor({...proveedor, telefono: e.target.value})}}
-                                
                             />
                         </div>
                         
@@ -184,32 +211,39 @@ useEffect(() => {
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" forhtml="mail">Mail:</label>
                             <input 
+                                onChange={(e)=>{setProveedor({...proveedor, mail: e.target.value})}}
+                                value={proveedor.mail}
                                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="mail"
                                 name="mail"
                                 type="text"
-                                value={proveedor.mail}
                                 placeholder="Agregar mail"
-                                onChange={(e)=>{setProveedor({...proveedor, mail: e.target.value})}}
+                                
                             />
                         </div>
-
-                        {/* Botón */}
-                        {visible == false && (<input
-                                onClick={()=>{agregarProveedor()}}
-                                type="submit"
-                                className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                value="Agregar Proveedor"
-                            />)}
-                        {/* /Botón */}
-                        {/* Botón Editar */}
-                        {visible == true && (<input
-                                onClick={()=>{editarProveedor()}}
-                                type="submit"
-                                className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                value="Editar Proveedor"
-                            />)}
-                            {/* /Botón  Editar*/}
+                        {visible ? (
+                            <input
+                              onClick={editarProveedor}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Editar Proveedor"
+                            />
+                          ) : (
+                            <input
+                              onClick={agregarProveedor}
+                              type="submit"
+                              className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                              value="Agregar Proveedor"
+                            />
+                          )}
+                            {visible && (
+                            <input
+                              type="submit"
+                              onClick={cancelarEdicion}
+                              className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                              value="Cancelar"
+                            />
+                            )}
 
                     </div>
                 </div>
@@ -242,19 +276,19 @@ useEffect(() => {
                         </tr>
                     </thead>
                     <tbody id="listado-proveedores" className="bg-white">
-              {proveedores.map(({ id_proveedor, nombre, direccion, telefono, mail})=>(
-                                    <tr key={id_proveedor}>
+              {proveedores.map((item, index)=>(
+                                    <tr key={item.id_proveedor}>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            {nombre}
+                                            {item.nombre}
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            {direccion}
+                                            {item.direccion}
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            {telefono}
+                                            {item.telefono}
                                         </th>
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            {mail}
+                                            {item.mail}
                                         </th>
                                         
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">

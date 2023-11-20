@@ -25,7 +25,7 @@ function Roles() {
         .then((res) => res.json())
         .then((roles) => setRoles(roles));
         
-    }, []);
+    }, [roles]);
 
     useEffect(() => {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -36,6 +36,13 @@ function Roles() {
       setRol(rol)
       setVisible(true)
     };
+
+    function mensajeError(){
+      let mensaje = "Ha ocurrido un error"
+      rol.nombre == '' ? mensaje = mensaje + "\nNombre vacio" : null
+      return mensaje 
+    }
+    
     
   
     const eliminarRol = async (rolId) => {
@@ -73,7 +80,7 @@ function Roles() {
         const rolNueva = await res.json();
         setRoles([...roles, rolNueva]);
       } else {
-        console.log("Fallo al crear Rol");
+        alert(mensajeError())
       }
       limpiarForm()
       setVisible(false)

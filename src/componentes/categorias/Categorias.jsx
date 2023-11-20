@@ -14,7 +14,6 @@ function Categorias() {
     const [visible, setVisible] = useState(false)
     
     useEffect(() => {
-      
       fetch("http://localhost:3000/categorias",{
         method: "GET",
         headers: {
@@ -24,7 +23,7 @@ function Categorias() {
         .then((res) => res.json())
         .then((categorias) => setCategorias(categorias));
         
-    }, []);
+    }, [categorias]);
 
     useEffect(() => {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -118,6 +117,11 @@ function Categorias() {
       setVisible(false)
     }
 
+    const cancelarEdicion = () => {
+      limpiarForm();
+      setVisible(false);
+    };
+
     return (
         <>
             <main className="md:w-3/5  xl:w-4/5 px-5 py-10 bg-gray-200">
@@ -139,25 +143,33 @@ function Categorias() {
                                         placeholder="Ingresar nombre de la Categoria"
                                     />
                                 </div>
-                                {/* Input */}
+                              
+                             
+                             {visible ? (
+                                    <input
+                                      onClick={edicionCategoria}
+                                      type="submit"
+                                      className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                                      value="Editar categoria"
+                                    />
+                                  ) : (
+                                    <input
+                                      onClick={agregarCategoria}
+                                      type="submit"
+                                      className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
+                                      value="Agregar categoria"
+                                    />
+                                  )}
+                                    {visible && (
+                                    <input
+                                      type="submit"
+                                      onClick={cancelarEdicion}
+                                      className="bg-gray-500 hover:bg-gray-700 text-white w-full mt-5 p-2 uppercase font-bold"
+                                      value="Cancelar"
+                                    />
+                                    )}
 
-                                {/* Botón Agregar */}
-                                {visible == false && (<input
-                                    onClick={()=>{agregarCategoria()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Agregar Categoria"
-                                />)}
-                                {/* Botón Agregar */}
 
-                                {/* Botón Editar */}
-                                {visible == true && (<input
-                                    onClick={()=>{edicionCategoria()}}
-                                    type="submit"
-                                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                                    value="Editar Categoria"
-                                />)}
-                                {/* /Botón  Editar*/}
                             </div>
                         </div>
                     </div>

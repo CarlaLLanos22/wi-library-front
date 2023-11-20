@@ -44,6 +44,16 @@ function Autores() {
       setVisible(true)
     };
     
+    function mensajeError(){
+      let mensaje = "Ha ocurrido un error"
+      autor.nombre == '' ? mensaje = mensaje + "\n Nombre vacio" : null
+      autor.apellido == '' ? mensaje = mensaje + "\n Apellido vacio" : null
+      autor.nacionalidad == '' ? mensaje = mensaje + "\n Nacionalidad vacio" : null
+      autor.biografia == '' ? mensaje = mensaje + "\n Biografia vacio" : null
+      autor.fecha_nacimiento == '' ? mensaje = mensaje + "\n Fecha de nacimiento vacio" : null
+      return mensaje 
+    }
+  
   
     const eliminarAutor = async (autorId) => {
       if (window.confirm("¿Desea eliminar ?")) {
@@ -82,10 +92,9 @@ function Autores() {
   
       if (res.ok) {
         const autorNueva = await res.json();
-        console.log(autorNueva);
         setAutores([...autores, autorNueva]);
       } else {
-        console.log("Fallo al crear Autor");
+        alert(mensajeError())
       }
       limpiarForm()
       setVisible(false)
@@ -116,7 +125,7 @@ function Autores() {
           limpiarForm()
           setVisible(false)
         } else {
-          alert("Error al editar la autor.");
+          alert("Error al editar el autor.");
         }
       }
   

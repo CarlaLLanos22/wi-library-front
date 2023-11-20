@@ -54,6 +54,13 @@ function Stock() {
         })
          setVisible(true)
     };
+
+    function mensajeError(){
+      let mensaje = "Ha ocurrido un error"
+      stock.cantidad == '' ? mensaje = mensaje + "\nCantidad vacia" : null
+      stock.id_libro == '' ? mensaje = mensaje + "\nSeleccione un libro" : null
+      return mensaje 
+    }
     
   
     const eliminarStock = async (stockId) => {
@@ -93,7 +100,7 @@ function Stock() {
           limpiarForm()
           setVisible(false)
       } else {
-        console.log("Fallo al crear Stock");
+        alert(mensajeError())
       }
      
     };
