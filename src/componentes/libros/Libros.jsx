@@ -29,12 +29,7 @@ function Libros() {
   const [libroSeleccionada, setLibroSeleccionada] = useState({})
   const [visible, setVisible] = useState(false)
   
-
-  
-
   useEffect(() => {
-    
-
     fetch("http://localhost:3000/libros",{
       method: "GET",
       headers: {
@@ -44,15 +39,13 @@ function Libros() {
       .then((res) => res.json())
       .then((libros) => setLibros(libros));
       
-  }, [libros]);
+  }, []);
 
   useEffect(() => {
     !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
   }, []);
 
  
-
-
    useEffect(() => {
     fetch("http://localhost:3000/autores",{
       method: "GET",
@@ -63,7 +56,7 @@ function Libros() {
       .then((res) => res.json())
       .then((autores) => setAutores(autores));
       
-  }, [autores]);
+  }, []);
    useEffect(() => {
     fetch("http://localhost:3000/proveedores",{
       method: "GET",
@@ -74,7 +67,7 @@ function Libros() {
       .then((res) => res.json())
       .then((proveedor) => setProveedor(proveedor));
       
-   }, [proveedor]);
+   }, []);
 
   
    useEffect(() => {
@@ -87,7 +80,7 @@ function Libros() {
       .then((res) => res.json())
       .then((categorias) => setCategorias(categorias));
       
-  }, [categorias]);
+  }, []);
 
    useEffect(() => {
     fetch("http://localhost:3000/editorial",{
@@ -99,7 +92,7 @@ function Libros() {
       .then((res) => res.json())
       .then((editorial) => setEditorial(editorial));
       
-   }, [editorial]);
+   }, []);
   
   const clickLibro = async (libro) => {
     if (libro && libro.id_libro) {
