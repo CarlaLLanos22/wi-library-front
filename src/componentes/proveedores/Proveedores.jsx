@@ -293,7 +293,7 @@ useEffect(() => {
                                         
                                         <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                             <span className="cursor-pointer" onClick={()=>{eliminarProveedor(item.id_proveedor)}}>🗑️</span>
-                                            <span className="cursor-pointer" onClick={()=>{clickProveedor({item})}}>📝</span>
+                                            <span className="cursor-pointer" onClick={()=>{clickProveedor(item)}}>📝</span>
                                         </th>
                                     </tr>
                                     
