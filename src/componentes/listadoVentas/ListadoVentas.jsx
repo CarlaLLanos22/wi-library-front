@@ -98,6 +98,8 @@ function ListadoVentas() {
                         <div className=" bg-white p-3 shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
                                 {/* Input */}
                                 <div className="mb-4">
+                                    <label className="block text-gray-700 text-sm font-bold mt-2" htmlFor="Username">Fecha</label>
+                                    {venta.fecha_alta.slice(0,10)}
                                     <label className="block text-gray-700 text-sm font-bold mt-2" htmlFor="Username">Cliente</label>
                                     {venta.cliente}
                                     <label className="block text-gray-700 text-sm font-bold mt-2" htmlFor="Password">Vendedor</label>
@@ -115,6 +117,8 @@ function ListadoVentas() {
                                     </ul>
                                     <label className="block text-gray-700 text-sm font-bold mt-10" htmlFor="Tipo">Total</label>
                                     <b>${venta.total}</b>
+                                    <label className="block text-gray-700 text-sm font-bold mt-10" htmlFor="Tipo">Total con Descuento</label>
+                                    <b>${venta.total-(venta.total-(venta.total*venta.descuento/100))}</b>
                                 </div>
                         </div>
                     </div>
