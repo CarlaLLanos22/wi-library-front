@@ -102,7 +102,7 @@ function Roles() {
         });
         if (res.ok) {
           setRoles(
-            roles.map((item)=> item.id == rolSeleccionada?rol:item)
+            roles.map((item)=> item.id_rol == rolSeleccionada?rol:item)
           )
           limpiarForm()
           setVisible(false)

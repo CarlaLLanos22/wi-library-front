@@ -90,6 +90,18 @@ function Ventas() {
         });
 
         alert("✅ ¡Venta creada exitosamente!")
+        
+        fetch("http://localhost:3000/libros",{
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}` 
+            }
+          })
+            .then((res) => res.json())
+            .then((libros) => { 
+              setLibros(libros) 
+              setDetallesFiltrados(libros)
+      });
       
       } else {
         alert("⚠️ ¡Error al crear la venta!")

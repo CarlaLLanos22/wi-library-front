@@ -82,6 +82,18 @@ function ListadoVentas() {
         });
         if (res.ok) {
           alert("Se anuló la venta")
+          fetch("http://localhost:3000/ventas",{
+              method: "GET",
+              headers: {
+                "Authorization": `Bearer ${token}` 
+              }
+      })
+        .then((res) => res.json())
+        .then((ventas) =>  { 
+          setListadoVentas(ventas) 
+          setVentasFiltradas(ventas)
+        });
+        
         } else {
           alert("Error al anular la venta");
         }

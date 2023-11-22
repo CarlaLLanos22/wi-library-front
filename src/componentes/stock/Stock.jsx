@@ -8,8 +8,10 @@ function Stock() {
     const token = localStorage.getItem('token')
 
     const [stock,setStock] = useState({
-        cantidad: 0,
-        id_libro: 0
+        stock_cantidad: 0,
+        id_libro: 0,
+      libro_nombre: "",
+        id_stock:0
     })
 
     const [stocks, setStocks] = useState([]);
@@ -49,15 +51,16 @@ function Stock() {
        const clickStock = async (stock) => {
         setStockSeleccionado(stock.id_stock)
          setStock({
-          cantidad: stock.stock_cantidad,
+          stock_cantidad: stock.stock_cantidad,
           id_libro: stock.id_libro,
+          libro_nombre: stock.libro_nombre
         })
          setVisible(true)
     };
 
     function mensajeError(){
       let mensaje = "Ha ocurrido un error"
-      stock.cantidad == '' ? mensaje = mensaje + "\nCantidad vacia" : null
+      stock.stock_cantidad == '' ? mensaje = mensaje + "\nCantidad vacia" : null
       stock.id_libro == '' ? mensaje = mensaje + "\nSeleccione un libro" : null
       return mensaje 
     }
@@ -89,14 +92,21 @@ function Stock() {
             "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-            cantidad: +stock.cantidad,
+            cantidad: +stock.stock_cantidad,
             id_libro: +stock.id_libro
         }),
       });
      
       if (res.ok) {
         const stockNuevo = await res.json();
-        setStocks([...stocks, stockNuevo]);
+        fetch("http://localhost:3000/stock",{
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}` 
+          }
+        })
+          .then((res) => res.json())
+          .then((stocks) => { setStocks(stocks[0])});
           limpiarForm()
           setVisible(false)
       } else {
@@ -114,13 +124,21 @@ function Stock() {
             "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify({
-              cantidad: stock.cantidad
+              cantidad: stock.stock_cantidad
           }),
         });
         if (res.ok) {
-          setStocks(
-            stocks.map((item)=> item.id == stockSeleccionado?stock:item)
-          )
+          // setStocks(
+          //   stocks.map((item)=> item.id_stock == stockSeleccionado?stock:item)
+          // )
+          fetch("http://localhost:3000/stock",{
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}` 
+            }
+          })
+            .then((res) => res.json())
+            .then((stocks) => { setStocks(stocks[0])});
           limpiarForm()
           setVisible(false)
         } else {
@@ -137,7 +155,7 @@ function Stock() {
     
     function limpiarForm() {
       setStock({
-          cantidad: 0,
+          stock_cantidad: 0,
           id_libro:0
       })
       setVisible(false)
@@ -155,8 +173,8 @@ function Stock() {
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cantidad">Cantidad de Libros:</label>
                                     <input
-                                        onChange={(e)=>{setStock({...stock, cantidad: parseInt(e.target.value)})}}
-                                        value={stock.cantidad}
+                                        onChange={(e)=>{setStock({...stock, stock_cantidad: parseInt(e.target.value)})}}
+                                        value={stock.stock_cantidad}
                                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         id="cantidad"
                                         name="cantidad"
@@ -166,7 +184,7 @@ function Stock() {
                                      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="libro">Libros:</label>
                                      <select
                                           onChange={(e) => {
-                                            setStock({ ...stock, id_libro: e.target.value });
+                                            setStock({ ...stock, id_libro: e.target.value, libro_nombre: e.target.options[e.target.selectedIndex].text });
                                           }}
                                           className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                           value={stock.id_libro}

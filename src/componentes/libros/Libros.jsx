@@ -102,7 +102,11 @@ function Libros() {
         año: libro.año,
         tipo: libro.tipo,
         isbn: libro.isbn,
-        precio:libro.precio,
+        precio: libro.precio,
+        nombre_autor: libro.nombre_autor,
+        nombre_categoria: libro.nombre_categoria,
+        nombre_editorial: libro.nombre_editorial,
+        nombre_proveedor: libro.nombre_proveedor,
         id_autor: libro.id_autor,
         id_categoria: libro.id_categoria,
         id_editorial: libro.id_editorial,
@@ -176,7 +180,7 @@ function Libros() {
           año: +libro.año,
           tipo:libro.tipo,
           isbn: libro.isbn,
-          precio:+libro.precio,
+          precio: +libro.precio,
           id_autor: +libro.id_autor,
           id_editorial: +libro.id_editorial,
           id_proveedor: +libro.id_proveedor,
@@ -310,7 +314,7 @@ function Libros() {
                 </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categorias">Categorias:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_categoria : +e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                <select onChange={(e)=>{ setLibro({...libro, id_categoria : e.target.value, nombre_categoria: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 value={libro.id_categoria}>
                                   <option value="0" >Seleccionar</option>
                                     {
@@ -323,7 +327,7 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="autores">Autores:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_autor : e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                <select onChange={(e)=>{ setLibro({...libro, id_autor : e.target.value, nombre_autor: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                  value={libro.id_autor} >
                                
                                 <option value="0" >Seleccionar</option>
@@ -337,7 +341,7 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="editorial">Editoriales:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_editorial : e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                <select onChange={(e)=>{ setLibro({...libro, id_editorial : e.target.value, nombre_editorial: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                  value={libro.id_editorial}>
                                 <option value="0" >Seleccionar</option>
                                     {
@@ -350,7 +354,7 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="proveedor">Proveedores:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_proveedor: e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                <select onChange={(e)=>{ setLibro({...libro, id_proveedor: e.target.value, nombre_proveedor: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 value={libro.id_proveedor}>
                                 <option value="0" >Seleccionar</option>
                                     {

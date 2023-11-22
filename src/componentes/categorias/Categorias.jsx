@@ -23,7 +23,7 @@ function Categorias() {
         .then((res) => res.json())
         .then((categorias) => setCategorias(categorias));
         
-    }, [categorias]);
+    }, []);
 
     useEffect(() => {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -99,7 +99,7 @@ function Categorias() {
         });
         if (res.ok) {
           setCategorias(
-            categorias.map((item)=> item.id == categoriaSeleccionada?categoria:item)
+            categorias.map((item)=> item.id_categoria == categoriaSeleccionada?categoria:item)
           )
           limpiarForm()
           setVisible(false)

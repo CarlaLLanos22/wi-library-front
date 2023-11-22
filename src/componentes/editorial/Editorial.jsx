@@ -101,7 +101,7 @@ function Editorial() {
         });
         if (res.ok) {
           setEditoriales(
-            editoriales.map((item)=> item.id == editorialSeleccionada?editorial:item)
+            editoriales.map((item)=> item.id_editorial == editorialSeleccionada?editorial:item)
           )
           limpiarForm()
           setVisible(false)
