@@ -27,7 +27,7 @@ function Stock() {
         .then((res) => res.json())
         .then((stocks) => { setStocks(stocks[0])});
         
-    }, [stocks]);
+    }, []);
 
     useEffect(() => {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -164,16 +164,22 @@ function Stock() {
                                         placeholder="Cantidad de stock de libros"
                                     />
                                      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="libro">Libros:</label>
-                                <select onChange={(e)=>{ setStock({...stock, id_libro: e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                value={stock.id_libro}>
-                                <option value="0" >Seleccionar</option>
-                                    {
-                                    libro.map((item,index)=>(
-                                        <option value={item.id_libro} key={index}>
-                                                {item.nombre}
-                                        </option>
-                                     ))}
-                                </select>
+                                     <select
+                                          onChange={(e) => {
+                                            setStock({ ...stock, id_libro: e.target.value });
+                                          }}
+                                          className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                          value={stock.id_libro}
+                                        >
+                                          <option value="0" className="font-black">Seleccionar</option>
+                                          {libro.map((item, index) => (
+                                            <option key={index} value={item.id_libro} className="font-black, text-teal-700">
+                                              {item.nombre} - Autor:   {item.nombre_autor}  - Editorial: {item.nombre_editorial}
+                                            </option>
+                                          ))}
+                                        </select>
+
+
                                 </div>
                                 {/* Input */}
 
@@ -234,7 +240,7 @@ function Stock() {
                                         {item.stock_cantidad}
                                       </th>
                                       <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                        {item.libro_nombre}
+                                          {item.libro_nombre} 
                                       </th>
                                       <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                         <span className="cursor-pointer" onClick={() => { eliminarStock(item.id_stock) }}>🗑️</span>

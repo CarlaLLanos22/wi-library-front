@@ -258,14 +258,14 @@ function Libros() {
                             </div>
                             {/* Input */}
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="año">Año:</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="año">Año de Edicion:</label>
                                 <input 
                                     value={libro.año}
                                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="año"
                                     name="año"
                                     type="number"
-                                    placeholder="Ingresar año del libro"
+                                    placeholder="Ingresar año de edicion del libro"
                                     onChange={(e)=>{setLibro({...libro, año: e.target.value})}}
                                 />
                             </div>
@@ -405,7 +405,7 @@ function Libros() {
                                         Nombre
                                 </th>
                                 <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                        Año
+                                        Edicion
                                 </th>
                                 <th className="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                         Formato
