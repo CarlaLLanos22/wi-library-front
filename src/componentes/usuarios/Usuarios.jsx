@@ -302,7 +302,7 @@ function Usuarios() {
                                             {rol.nombre}
                                         </th> 
                                         <th className="px-6 py-3 border-b border-gray-200 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                                            {persona.nombre}
+                                            {persona.nombre} {persona.apellido}
                                         </th> 
                                         <th className="px-6 py-3 border-b border-gray-200 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                                             <span className="cursor-pointer" onClick={() => { eliminarUsuario(usuario.id_usuario) }}>🗑️</span>

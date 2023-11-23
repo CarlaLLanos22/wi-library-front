@@ -25,7 +25,7 @@ function Editorial() {
         .then((res) => res.json())
         .then((editoriales) => setEditoriales(editoriales));
         
-    }, [editoriales]);
+    }, []);
 
     useEffect(() => {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -76,13 +76,20 @@ function Editorial() {
       });
   
       if (res.ok) {
-        const editorialNueva = await res.json();
-        setEditoriales([...editoriales, editorialNueva]);
+        const editorialNuevo = await res.json();
+        fetch("http://localhost:3000/editorial",{
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}` 
+          }
+        })
+          .then((res) => res.json())
+          .then((editoriales) => { setEditoriales(editoriales)});
+          limpiarForm()
+          setVisible(false)
       } else {
         alert(mensajeError())
       }
-      limpiarForm()
-      setVisible(false)
     };
   
     const edicionEditorial = async () => {
