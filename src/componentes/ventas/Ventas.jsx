@@ -77,6 +77,7 @@ function Ventas() {
   
       if (res.ok) {
         const ventaNueva = await res.json();
+        // Por cada elemento del detalle, llamamos a ventas-productos y hacemos un post por cada uno
         detalles.forEach(async (libro) => {
           const res = await fetch(`http://localhost:3000/ventas-productos`, {
             method: "POST",
@@ -112,6 +113,7 @@ function Ventas() {
       } else {
         alert("⚠️ ¡Error al crear la venta!")
       }
+      //Limpia Todo
       setDetalles([])
       setDetallesFiltrados(libros)
       limpiarForm()
@@ -132,8 +134,11 @@ function Ventas() {
     }
 
     function filtrarLibro(nombre) {
+      // buscar en el listado de libros aquellos libros que no estan en el detalle
       let difference = libros.filter(x => !detalles.includes(x));
+      // sobre los libros que no estan en el detalle, filtramos aquellos que parte del nombre coincida con lo que escribi.
       const libroFiltrado = difference.filter((item)=>item.nombre.includes(nombre))
+      // cambiar la lista del filtro
       setDetallesFiltrados(libroFiltrado)
     }
 
@@ -141,14 +146,17 @@ function Ventas() {
       if (venta.cantidad==0 || venta.cantidad < 0 || venta.cantidad > stock){
         alert("La cantidad ingresada es incorrecta")
       }else{
-
         // Agrego al detalle
         const libroSeleccionado = libros.filter((item)=>item.id_libro==id_libro)[0]
+        // Agregamos el atributo cantidad transitoriamente al libro para el detalle
         libroSeleccionado['cantidad'] = parseInt(venta.cantidad)
+        
+        // Agregar el detalle el libro
         const nuevoDetalle = [...detalles, libroSeleccionado]
         setDetalles(nuevoDetalle)
         
         //Quito del filtro
+        //Devuelve una lista que contiene los elementos de la lista que no sean el libro
         setDetallesFiltrados(detallesFiltrados.filter((item)=>item.id_libro != id_libro ))
         
         //Calcular el total
