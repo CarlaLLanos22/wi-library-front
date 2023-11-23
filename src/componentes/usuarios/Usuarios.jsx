@@ -236,7 +236,9 @@ function Usuarios() {
                                     value={usuario.id_persona || ''}>
                                         <option value="0" className="font-black">Seleccionar</option>
                                     {
-                                    personas.map((item,index)=>(
+                                    personas
+                                    .filter((persona) => persona.tipo === "empleado")
+                                    .map((item,index)=>(
                                         <option value={item.id_persona} key={index} className="font-black, text-teal-700">
                                                 {item.nombre} {item.apellido}
                                         </option>

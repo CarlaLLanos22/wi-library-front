@@ -334,7 +334,7 @@ function Libros() {
                                     {
                                     autores.map((item,index)=>(
                                         <option value={item.id_autor} key={index} className="font-black, text-teal-700">
-                                                {item.nombre}
+                                                {item.nombre} 
                                         </option>
                                      ))}
                                 </select>
