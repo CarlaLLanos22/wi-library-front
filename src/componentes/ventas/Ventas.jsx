@@ -50,6 +50,12 @@ function Ventas() {
 
 
     const finalizarVenta = async () => {
+
+      if(venta.descuento < 0) {
+        alert("El Descuento no puede ser negativo")
+        return
+      }
+
       const tokenDecode = jwtDecode(localStorage.getItem("token"));
 
       // Doy de alta la venta
@@ -132,7 +138,7 @@ function Ventas() {
     }
 
     function agregarLibro(id_libro,stock) {
-      if (venta.cantidad==0 || venta.cantidad > stock){
+      if (venta.cantidad==0 || venta.cantidad < 0 || venta.cantidad > stock){
         alert("La cantidad ingresada es incorrecta")
       }else{
 

@@ -130,7 +130,7 @@ function ListadoVentas() {
                                     <label className="block text-gray-700 text-sm font-bold mt-10" htmlFor="Tipo">Total</label>
                                     <b>${venta.total}</b>
                                     <label className="block text-gray-700 text-sm font-bold mt-10" htmlFor="Tipo">Total con Descuento</label>
-                                    <b>${venta.total-(venta.total-(venta.total*venta.descuento/100))}</b>
+                                    <b>${venta.total-(venta.total*venta.descuento/100)}</b>
                                 </div>
                         </div>
                     </div>
