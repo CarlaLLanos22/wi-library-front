@@ -44,12 +44,12 @@ function BarraLateral() {
     <>
     <aside className="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
             <h1 className="uppercase text-white tracking-wide text-2xl  font-bold mt-2">Wi-Library 📚</h1>
-            <h1 className="mt-10 text-white"><b>MENU</b></h1><br></br>
+            <br></br>
             <span className="text-white mb-10">
               Bienvenido <b>{username()}</b> <br></br> {rol()}
             </span>
             <br></br>
-            <br></br>
+            <h1 className="mt-10 text-white"><b>MENU</b></h1><br></br>
             <a  href="/" 
                 className="px-3 py-1 text-white block hover:bg-teal-700 hover:text-yellow-400 bg-teal-700"
             >Home</a>
