@@ -103,7 +103,13 @@ function Usuarios() {
       setVisible(false)
     };
   
-    const agregarUsuario = async () => {
+  const agregarUsuario = async () => {
+    const usuarioExistente = usuarios.find((item) => item.usuario.username === usuario.username);
+    if (usuarioExistente) {
+      alert('El usuario ya existe');
+      return;
+    }
+    
       const res = await fetch("http://localhost:3000/usuarios", {
         method: "POST",
         headers: { 
@@ -214,25 +220,25 @@ function Usuarios() {
                                         required
                                     />
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Tipo">Roles:</label>
-                                    <select onChange={(e)=>{setUsuario({...usuario, id_rol: +e.target.value})}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    <select onChange={(e)=>{setUsuario({...usuario, id_rol: +e.target.value})}} className="p-2 bg-teal-50 border border-teal-900 text-teal-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                     value={usuario.id_rol || ''}>
-                                        <option value="0" >Seleccionar</option>
+                                        <option value="0" className="font-black">Seleccionar</option>
                                     {
                                     roles.map((item,index)=>(
-                                        <option value={item.id_rol} key={index}>
+                                        <option value={item.id_rol} key={index} className="font-black, text-teal-700">
                                                 {item.nombre}
                                         </option>
                                      ))}
                                     </select>
 
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Tipo">Persona:</label>
-                                    <select onChange={(e) => { setUsuario({ ...usuario, id_persona: +e.target.value })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    <select onChange={(e) => { setUsuario({ ...usuario, id_persona: +e.target.value })}} className="p-2 bg-teal-50 border border-teal-900 text-teal-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                     value={usuario.id_persona || ''}>
-                                        <option value="0" >Seleccionar</option>
+                                        <option value="0" className="font-black">Seleccionar</option>
                                     {
                                     personas.map((item,index)=>(
-                                        <option value={item.id_persona} key={index} >
-                                                {item.nombre}
+                                        <option value={item.id_persona} key={index} className="font-black, text-teal-700">
+                                                {item.nombre} {item.apellido}
                                         </option>
                                      ))}
                                     </select>

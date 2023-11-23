@@ -22,12 +22,7 @@ function Login() {
     const onSubmit = () => {
         const username = usuario.username
         const password = usuario.password
-        login(
-          username,
-          password,
-          () => navigate(from, { replace: true }),
-          () => setError(true)
-        );
+        login(username,password,() => navigate(from, { replace: true }),() => setError(true));
       };
 
   return (

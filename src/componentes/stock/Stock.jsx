@@ -10,7 +10,7 @@ function Stock() {
     const [stock,setStock] = useState({
         stock_cantidad: 0,
         id_libro: 0,
-      libro_nombre: "",
+        libro_nombre: "",
         id_stock:0
     })
 
@@ -186,13 +186,13 @@ function Stock() {
                                           onChange={(e) => {
                                             setStock({ ...stock, id_libro: e.target.value, libro_nombre: e.target.options[e.target.selectedIndex].text });
                                           }}
-                                          className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                          className="p-2 bg-teal-50 border border-teal-900 text-teal-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                           value={stock.id_libro}
                                         >
                                           <option value="0" className="font-black">Seleccionar</option>
                                           {libro.map((item, index) => (
                                             <option key={index} value={item.id_libro} className="font-black, text-teal-700">
-                                              {item.nombre} - Autor:   {item.nombre_autor}  - Editorial: {item.nombre_editorial}
+                                              {item.nombre} - Autor:   {item.nombre_autor}  - Editorial: {item.nombre_editorial} - Año Edicion: {item.año}
                                             </option>
                                           ))}
                                         </select>

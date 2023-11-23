@@ -314,12 +314,12 @@ function Libros() {
                 </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categorias">Categorias:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_categoria : e.target.value, nombre_categoria: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                <select onChange={(e)=>{ setLibro({...libro, id_categoria : e.target.value, nombre_categoria: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-teal-50 border border-teal-900 text-teal-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 value={libro.id_categoria}>
-                                  <option value="0" >Seleccionar</option>
+                                  <option value="0" className="font-black">Seleccionar</option>
                                     {
                                     categorias.map((item,index)=>(
-                                        <option value={item.id_categoria} key={index}>
+                                        <option value={item.id_categoria} key={index} className="font-black, text-teal-700">
                                                 {item.nombre}
                                         </option>
                                      ))}
@@ -327,13 +327,13 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="autores">Autores:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_autor : e.target.value, nombre_autor: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                <select onChange={(e)=>{ setLibro({...libro, id_autor : e.target.value, nombre_autor: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-teal-50 border border-teal-900 text-teal-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                  value={libro.id_autor} >
                                
-                                <option value="0" >Seleccionar</option>
+                                <option value="0" className="font-black">Seleccionar</option>
                                     {
                                     autores.map((item,index)=>(
-                                        <option value={item.id_autor} key={index}>
+                                        <option value={item.id_autor} key={index} className="font-black, text-teal-700">
                                                 {item.nombre}
                                         </option>
                                      ))}
@@ -341,12 +341,12 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="editorial">Editoriales:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_editorial : e.target.value, nombre_editorial: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                <select onChange={(e)=>{ setLibro({...libro, id_editorial : e.target.value, nombre_editorial: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-teal-50 border border-teal-900 text-teal-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                  value={libro.id_editorial}>
-                                <option value="0" >Seleccionar</option>
+                                <option value="0" className="font-black">Seleccionar</option>
                                     {
                                     editorial.map((item,index)=>(
-                                        <option value={item.id_editorial} key={index}>
+                                        <option value={item.id_editorial} key={index} className="font-black, text-teal-700">
                                                 {item.nombre}
                                         </option>
                                      ))}
@@ -354,12 +354,12 @@ function Libros() {
                             </div>
                 <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="proveedor">Proveedores:</label>
-                                <select onChange={(e)=>{ setLibro({...libro, id_proveedor: e.target.value, nombre_proveedor: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                value={libro.id_proveedor}>
-                                <option value="0" >Seleccionar</option>
+                                <select onChange={(e)=>{ setLibro({...libro, id_proveedor: e.target.value, nombre_proveedor: e.target.options[e.target.selectedIndex].text })}} className="p-2 bg-teal-50 border border-teal-900 text-teal-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                value={libro.id_proveedor} >
+                                <option value="0" className="font-black">Seleccionar</option>
                                     {
                                     proveedor.map((item,index)=>(
-                                        <option value={item.id_proveedor} key={index}>
+                                        <option value={item.id_proveedor} key={index} className="font-black, text-teal-700">
                                                 {item.nombre}
                                         </option>
                                      ))}

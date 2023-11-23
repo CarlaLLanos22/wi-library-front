@@ -25,7 +25,7 @@ function Roles() {
         .then((res) => res.json())
         .then((roles) => setRoles(roles));
         
-    }, [roles]);
+    }, []);
 
     useEffect(() => {
       !localStorage.getItem("token") ? navigate('/login',{ replace: true }) : null
@@ -78,7 +78,14 @@ function Roles() {
   
       if (res.ok) {
         const rolNueva = await res.json();
-        setRoles([...roles, rolNueva]);
+        fetch("http://localhost:3000/roles",{
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}` 
+        }
+      })
+        .then((res) => res.json())
+        .then((roles) => setRoles(roles));
       } else {
         alert(mensajeError())
       }
