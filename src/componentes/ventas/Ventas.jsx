@@ -118,6 +118,7 @@ function Ventas() {
       setDetallesFiltrados(libros)
       limpiarForm()
       setVenta({
+        ...venta,
         total:0,
         descuento:0,
         nombre: '',
